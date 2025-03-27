@@ -1,0 +1,1055 @@
+fileFormatVersion: 2
+guid: 79ca2b3090726f24486b8d61335cc0fd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3568540503306911316
+    second: gdb-playstation-3_0
+  - first:
+      213: -8784147043569246610
+    second: gdb-playstation-3_1
+  - first:
+      213: 3533778267621938494
+    second: gdb-playstation-3_2
+  - first:
+      213: 6261698568567998146
+    second: gdb-playstation-3_3
+  - first:
+      213: 6975017350011782117
+    second: gdb-playstation-3_4
+  - first:
+      213: -7641124614277127808
+    second: gdb-playstation-3_5
+  - first:
+      213: 8958434710532046319
+    second: gdb-playstation-3_6
+  - first:
+      213: 3831940148706715699
+    second: gdb-playstation-3_7
+  - first:
+      213: -4760918831259946673
+    second: gdb-playstation-3_8
+  - first:
+      213: 423543946847372353
+    second: gdb-playstation-3_9
+  - first:
+      213: -483690469613332498
+    second: gdb-playstation-3_10
+  - first:
+      213: 8399402487106768321
+    second: gdb-playstation-3_11
+  - first:
+      213: 188547579204189254
+    second: gdb-playstation-3_12
+  - first:
+      213: -7406350378863543357
+    second: gdb-playstation-3_13
+  - first:
+      213: -7411748992253073743
+    second: gdb-playstation-3_14
+  - first:
+      213: 5512196961371265700
+    second: gdb-playstation-3_15
+  - first:
+      213: 8961394494742447352
+    second: gdb-playstation-3_16
+  - first:
+      213: -4379568623946552474
+    second: gdb-playstation-3_17
+  - first:
+      213: 7437282637978799347
+    second: gdb-playstation-3_18
+  - first:
+      213: 6061450137646213894
+    second: gdb-playstation-3_19
+  - first:
+      213: -3424166632067969574
+    second: gdb-playstation-3_20
+  - first:
+      213: -744642262540676658
+    second: gdb-playstation-3_21
+  - first:
+      213: 19973974496481289
+    second: gdb-playstation-3_22
+  - first:
+      213: 1098370749492100006
+    second: gdb-playstation-3_23
+  - first:
+      213: -6164638686786875053
+    second: gdb-playstation-3_24
+  - first:
+      213: -6646404548727741332
+    second: gdb-playstation-3_25
+  - first:
+      213: 4737237456681864238
+    second: gdb-playstation-3_26
+  - first:
+      213: -9110816858605337408
+    second: gdb-playstation-3_27
+  - first:
+      213: -4033889099157729707
+    second: gdb-playstation-3_28
+  - first:
+      213: -4500750922185568102
+    second: gdb-playstation-3_29
+  - first:
+      213: 7804756626001501819
+    second: gdb-playstation-3_30
+  - first:
+      213: 8701540790413928627
+    second: gdb-playstation-3_31
+  - first:
+      213: 3140505614743562705
+    second: gdb-playstation-3_32
+  - first:
+      213: -88153344404988700
+    second: gdb-playstation-3_33
+  - first:
+      213: -317747771831717944
+    second: gdb-playstation-3_34
+  - first:
+      213: -9071141650737984558
+    second: gdb-playstation-3_35
+  - first:
+      213: -5816627535581507867
+    second: gdb-playstation-3_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gdb-playstation-3_0
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 933
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca14cc5b15ff97ec0800000000000000
+      internalID: -3568540503306911316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_1
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6ed145edc0781680800000000000000
+      internalID: -8784147043569246610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_2
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 933
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e35d9949c908a0130800000000000000
+      internalID: 3533778267621938494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_3
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 933
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c641161ca506e650800000000000000
+      internalID: 6261698568567998146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_4
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e383a9135d3cc060800000000000000
+      internalID: 6975017350011782117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_5
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 081a481d5a545f590800000000000000
+      internalID: -7641124614277127808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_6
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 933
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fedbac8c7e0c25c70800000000000000
+      internalID: 8958434710532046319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_7
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 338a8344349cd2530800000000000000
+      internalID: 3831940148706715699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_8
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 933
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4178422c81ddedb0800000000000000
+      internalID: -4760918831259946673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_9
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 933
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 144ca92c9fab0e500800000000000000
+      internalID: 423543946847372353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_10
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee79471a4169949f0800000000000000
+      internalID: -483690469613332498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_11
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cd08816f0ca09470800000000000000
+      internalID: 8399402487106768321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_12
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64cb9b9360bdd9200800000000000000
+      internalID: 188547579204189254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_13
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 933
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb32c9229b573990800000000000000
+      internalID: -7406350378863543357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_14
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b665688f8d242990800000000000000
+      internalID: -7411748992253073743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_15
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4aa95867ee14f7c40800000000000000
+      internalID: 5512196961371265700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_16
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f4c34f30d44d5c70800000000000000
+      internalID: 8961394494742447352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_17
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 933
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66b283c5a85a833c0800000000000000
+      internalID: -4379568623946552474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_18
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 933
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc08e2a729863760800000000000000
+      internalID: 7437282637978799347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_19
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 933
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60b252609c89e1450800000000000000
+      internalID: 6061450137646213894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_20
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: addc7d3179aea70d0800000000000000
+      internalID: -3424166632067969574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_21
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec11588becf7aa5f0800000000000000
+      internalID: -744642262540676658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_22
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 933
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9009d965936f64000800000000000000
+      internalID: 19973974496481289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_23
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 933
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abf72390623e3f00800000000000000
+      internalID: 1098370749492100006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_24
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 933
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3511079a6cdc27aa0800000000000000
+      internalID: -6164638686786875053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_25
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 933
+        width: 15
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c64ea8fe64a33c3a0800000000000000
+      internalID: -6646404548727741332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_26
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c823e2e5c0eb140800000000000000
+      internalID: 4737237456681864238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_27
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c440399650ef8180800000000000000
+      internalID: -9110816858605337408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_28
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 933
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55e026d9c3fb408c0800000000000000
+      internalID: -4033889099157729707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_29
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 933
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a901e9cd1ee1a81c0800000000000000
+      internalID: -4500750922185568102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_30
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7e123bccc0105c60800000000000000
+      internalID: 7804756626001501819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_31
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 933
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b8a1330f3512c870800000000000000
+      internalID: 8701540790413928627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_32
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 580
+        width: 229
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d9e8eda731559b20800000000000000
+      internalID: 3140505614743562705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_33
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 580
+        width: 118
+        height: 332
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ec5af41001d6cef0800000000000000
+      internalID: -88153344404988700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_34
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 580
+        width: 117
+        height: 332
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cf6cc3c512279bf0800000000000000
+      internalID: -317747771831717944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_35
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 277
+        width: 742
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2db0388cab4dc1280800000000000000
+      internalID: -9071141650737984558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gdb-playstation-3_36
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4
+        width: 440
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ee88eef210374fa0800000000000000
+      internalID: -5816627535581507867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
