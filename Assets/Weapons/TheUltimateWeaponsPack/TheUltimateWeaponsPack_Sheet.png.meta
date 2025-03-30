@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 15b7a8310bd1b9c49bbbe6992f16d2ee
+guid: cb35c37d706e0c94a980e00999aea45e
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -358,7 +358,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -396,7 +396,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -2822,7 +2822,115 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TheUltimateWeaponsPack_Sheet_0: -5638742230812837652
+      TheUltimateWeaponsPack_Sheet_1: -4746390291930131888
+      TheUltimateWeaponsPack_Sheet_10: -5465021449543003377
+      TheUltimateWeaponsPack_Sheet_100: 2431245978237596447
+      TheUltimateWeaponsPack_Sheet_101: -3832049779033567868
+      TheUltimateWeaponsPack_Sheet_102: 6866156215259239592
+      TheUltimateWeaponsPack_Sheet_103: -2437020834646188942
+      TheUltimateWeaponsPack_Sheet_104: -8928254503116042131
+      TheUltimateWeaponsPack_Sheet_105: 4647626944877243438
+      TheUltimateWeaponsPack_Sheet_106: -8441196293723025116
+      TheUltimateWeaponsPack_Sheet_107: -6095301850794426179
+      TheUltimateWeaponsPack_Sheet_11: 3643455457785946567
+      TheUltimateWeaponsPack_Sheet_12: 1385136614267820630
+      TheUltimateWeaponsPack_Sheet_13: -4073698568845946102
+      TheUltimateWeaponsPack_Sheet_14: 6629848906419725405
+      TheUltimateWeaponsPack_Sheet_15: -7569623475306488073
+      TheUltimateWeaponsPack_Sheet_16: -5419044198574814951
+      TheUltimateWeaponsPack_Sheet_17: -5939276928384101208
+      TheUltimateWeaponsPack_Sheet_18: 5911737333721592550
+      TheUltimateWeaponsPack_Sheet_19: 764356508857584111
+      TheUltimateWeaponsPack_Sheet_2: -8523240991611011927
+      TheUltimateWeaponsPack_Sheet_20: 2708639840820545950
+      TheUltimateWeaponsPack_Sheet_21: -2661830821402497991
+      TheUltimateWeaponsPack_Sheet_22: 8059582213660974666
+      TheUltimateWeaponsPack_Sheet_23: 2798987518579455778
+      TheUltimateWeaponsPack_Sheet_24: 9141837564823945642
+      TheUltimateWeaponsPack_Sheet_25: -4033317512211247832
+      TheUltimateWeaponsPack_Sheet_26: 3849282016864851395
+      TheUltimateWeaponsPack_Sheet_27: 2472491328000729835
+      TheUltimateWeaponsPack_Sheet_28: 2808030512068469020
+      TheUltimateWeaponsPack_Sheet_29: -1157180481123695973
+      TheUltimateWeaponsPack_Sheet_3: -7579322072880458250
+      TheUltimateWeaponsPack_Sheet_30: 7730252738064551190
+      TheUltimateWeaponsPack_Sheet_31: -6827480020658396542
+      TheUltimateWeaponsPack_Sheet_32: -3891348351144784901
+      TheUltimateWeaponsPack_Sheet_33: 4737189852767799976
+      TheUltimateWeaponsPack_Sheet_34: -6620131365891478404
+      TheUltimateWeaponsPack_Sheet_35: 8858887549055173123
+      TheUltimateWeaponsPack_Sheet_36: -7811281384907904539
+      TheUltimateWeaponsPack_Sheet_37: -4939357114113203936
+      TheUltimateWeaponsPack_Sheet_38: -5658556673641279201
+      TheUltimateWeaponsPack_Sheet_39: -3739897064084787100
+      TheUltimateWeaponsPack_Sheet_4: 9082651129752751778
+      TheUltimateWeaponsPack_Sheet_40: 1620722638401729522
+      TheUltimateWeaponsPack_Sheet_41: -4470826040511462704
+      TheUltimateWeaponsPack_Sheet_42: 7340849509538074472
+      TheUltimateWeaponsPack_Sheet_43: -5611430417688877225
+      TheUltimateWeaponsPack_Sheet_44: 3487025797950047845
+      TheUltimateWeaponsPack_Sheet_45: 3005121338723067259
+      TheUltimateWeaponsPack_Sheet_46: -2878292265747696017
+      TheUltimateWeaponsPack_Sheet_47: 8200840691838659403
+      TheUltimateWeaponsPack_Sheet_48: -3589753207154303887
+      TheUltimateWeaponsPack_Sheet_49: -6219617140262306298
+      TheUltimateWeaponsPack_Sheet_5: -4347228463431677107
+      TheUltimateWeaponsPack_Sheet_50: -7044908426348426570
+      TheUltimateWeaponsPack_Sheet_51: 7666310237276017457
+      TheUltimateWeaponsPack_Sheet_52: 4151840855415761086
+      TheUltimateWeaponsPack_Sheet_53: -8505740992458538012
+      TheUltimateWeaponsPack_Sheet_54: -193888388012662029
+      TheUltimateWeaponsPack_Sheet_55: 2124253744023779533
+      TheUltimateWeaponsPack_Sheet_56: -8486966478080587561
+      TheUltimateWeaponsPack_Sheet_57: -1230275211637329022
+      TheUltimateWeaponsPack_Sheet_58: -2112549602230717194
+      TheUltimateWeaponsPack_Sheet_59: -685174750832777968
+      TheUltimateWeaponsPack_Sheet_6: -8390646594462625173
+      TheUltimateWeaponsPack_Sheet_60: 5772468762411165903
+      TheUltimateWeaponsPack_Sheet_61: 8410511923708042089
+      TheUltimateWeaponsPack_Sheet_62: 8618587650170003454
+      TheUltimateWeaponsPack_Sheet_63: 7350967432228547118
+      TheUltimateWeaponsPack_Sheet_64: -1198099712212326842
+      TheUltimateWeaponsPack_Sheet_65: 4728195851116764905
+      TheUltimateWeaponsPack_Sheet_66: -5374819871849402570
+      TheUltimateWeaponsPack_Sheet_67: 7348942559085486906
+      TheUltimateWeaponsPack_Sheet_68: -5374715925496410456
+      TheUltimateWeaponsPack_Sheet_69: -448844565797092685
+      TheUltimateWeaponsPack_Sheet_7: 1541805573318753466
+      TheUltimateWeaponsPack_Sheet_70: -3695365748681480946
+      TheUltimateWeaponsPack_Sheet_71: -5308282563911845938
+      TheUltimateWeaponsPack_Sheet_72: -3467952037033373612
+      TheUltimateWeaponsPack_Sheet_73: 4681750819136461323
+      TheUltimateWeaponsPack_Sheet_74: 3217403911020690078
+      TheUltimateWeaponsPack_Sheet_75: -4679324005849523573
+      TheUltimateWeaponsPack_Sheet_76: 7181962726323304695
+      TheUltimateWeaponsPack_Sheet_77: 3256892852131339308
+      TheUltimateWeaponsPack_Sheet_78: -7623719919919112248
+      TheUltimateWeaponsPack_Sheet_79: -1944148970997640258
+      TheUltimateWeaponsPack_Sheet_8: 482708623523165341
+      TheUltimateWeaponsPack_Sheet_80: -9219641763052087355
+      TheUltimateWeaponsPack_Sheet_81: -993252490491368801
+      TheUltimateWeaponsPack_Sheet_82: 4295701272012387402
+      TheUltimateWeaponsPack_Sheet_83: 6181370277047604028
+      TheUltimateWeaponsPack_Sheet_84: -7841458269944179182
+      TheUltimateWeaponsPack_Sheet_85: -627160086787813244
+      TheUltimateWeaponsPack_Sheet_86: -1196701647654146785
+      TheUltimateWeaponsPack_Sheet_87: -8064958875153587819
+      TheUltimateWeaponsPack_Sheet_88: -6977288686682777137
+      TheUltimateWeaponsPack_Sheet_89: 7996453821148655204
+      TheUltimateWeaponsPack_Sheet_9: -3871727243995655896
+      TheUltimateWeaponsPack_Sheet_90: 7089640226415417224
+      TheUltimateWeaponsPack_Sheet_91: 9133295331935165511
+      TheUltimateWeaponsPack_Sheet_92: -7281880114460336186
+      TheUltimateWeaponsPack_Sheet_93: 2959745668359088034
+      TheUltimateWeaponsPack_Sheet_94: 2985013521038552090
+      TheUltimateWeaponsPack_Sheet_95: -4127842754582369359
+      TheUltimateWeaponsPack_Sheet_96: -2713527960189870334
+      TheUltimateWeaponsPack_Sheet_97: 6542533971748264620
+      TheUltimateWeaponsPack_Sheet_98: -5535464439347351287
+      TheUltimateWeaponsPack_Sheet_99: -6143183315031556003
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

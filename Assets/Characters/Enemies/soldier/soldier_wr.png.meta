@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 8161891f52ae4284fb7b299e9cc5fa32
+guid: 9324c781256bb8b46b35eb2fd4fb3267
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6704371230968284964
-    second: basic_enemy_0
+      213: -5623904341491936966
+    second: soldier_wr_0
+  - first:
+      213: -2241330365647031049
+    second: soldier_wr_1
+  - first:
+      213: -7038538776272397333
+    second: soldier_wr_2
+  - first:
+      213: -8064081191387876747
+    second: soldier_wr_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +122,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basic_enemy_0
+      name: soldier_wr_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 3
         y: 0
-        width: 21
+        width: 19
         height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd879cff2e945f2a0800000000000000
-      internalID: -6704371230968284964
+      spriteID: a3198925cc0e3f1b0800000000000000
+      internalID: -5623904341491936966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier_wr_1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f4ff4358e135e0e0800000000000000
+      internalID: -2241330365647031049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier_wr_2
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 0
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beb98765646125e90800000000000000
+      internalID: -7038538776272397333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier_wr_3
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 572ba6bb1e0a61090800000000000000
+      internalID: -8064081191387876747
       vertices: []
       indices: 
       edges: []

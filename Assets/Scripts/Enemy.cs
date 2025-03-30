@@ -102,6 +102,5 @@ public class Enemy : MonoBehaviour
     public void Defeated()
     {
         Destroy(gameObject);
-        player.GetComponent<PlayerController>().AddKill();
     }
 }

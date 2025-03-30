@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        // Ustaw pr�dko�� pocisku
         GetComponent<Rigidbody2D>().linearVelocity = transform.right * bulletSpeed;
     }
     private void OnTriggerEnter2D(Collider2D other)

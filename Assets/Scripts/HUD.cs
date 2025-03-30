@@ -13,6 +13,5 @@ public class HUD : MonoBehaviour
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        healthStatus.text = $"{player.GetComponent<PlayerController>().health}";
     }
 }

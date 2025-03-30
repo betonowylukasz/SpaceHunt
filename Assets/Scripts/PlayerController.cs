@@ -7,18 +7,12 @@ using static UnityEngine.RectTransform;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float collisionOffset = 0;
+    public float moveSpeed = 3f;
     public ContactFilter2D movementFilter;
-
-    public GameObject bulletPrefab;
-    public GameObject barrel;
     public GameObject crosshair;
-    public GameObject weapon;
     public Camera mainCamera;
-    public float rotationSpeed = 20f;
-    public int health = 3;
-    public int kills = 0;
+    public float crosshairDistance = 0.5f;
+    public WeaponManager weaponManager;
 
     Vector2 movementInput;
     Vector2 lookInput;
@@ -30,8 +24,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        kills = 0;
-        health = 3;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRender = GetComponent<SpriteRenderer>();
@@ -91,7 +83,7 @@ public class PlayerController : MonoBehaviour
                 direction,
                 movementFilter,
                 castCollisions,
-                moveSpeed * Time.fixedDeltaTime + collisionOffset);
+                moveSpeed * Time.fixedDeltaTime);
 
             if (count == 0)
             {
@@ -114,61 +106,25 @@ public class PlayerController : MonoBehaviour
             {
                 Vector2 screenSize = new Vector2(Screen.width, Screen.height);
 
-                // Oblicz �rodek ekranu
                 Vector2 screenCenter = screenSize / 2f;
 
-                // Przekszta�� pozycj� myszy wzgl�dem �rodka ekranu
                 Vector2 transformedDirection = direction - screenCenter;
 
-                // Ustaw przekszta�con� pozycj� jako pozycj� celownika
-                crosshair.transform.localPosition = transformedDirection.normalized * 2.5f;
+                crosshair.transform.localPosition = transformedDirection.normalized * crosshairDistance;
             }
             else
             {
                 direction.Normalize();
-                crosshair.transform.localPosition = direction * 2.5f;
+                crosshair.transform.localPosition = direction * crosshairDistance;
             }
-            RotateWeaponTowardsCrosshair();
         }
     }
 
-    private void RotateWeaponTowardsCrosshair()
-    {
-        Vector3 characterPosition = transform.position;
-        Vector3 crosshairPosition = crosshair.transform.position;
-
-        Vector3 direction = crosshairPosition - characterPosition;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        float radius = 0.8f;
-        float xOffset = Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
-        float yOffset = Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
-        Vector3 weaponOffset = new Vector3(xOffset, yOffset, 0f);
-        weapon.transform.localPosition = weaponOffset;
-
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, rotation, rotationSpeed * Time.deltaTime);
-
-        SpriteRenderer weaponSpriteRenderer = weapon.GetComponent<SpriteRenderer>();
-        if (direction.x < 0)
-        {
-            weaponSpriteRenderer.flipY = true; // Obr�� broni� do g�ry nogami
-        }
-        else
-        {
-            weaponSpriteRenderer.flipY = false; // Zresetuj obr�t broni
-        }
-    }
-
-    public void AddKill()
-    {
-        kills += 1;
-    }
 
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
+        print(movementValue);
     }
 
     void OnLook(InputValue lookValue)
@@ -176,10 +132,19 @@ public class PlayerController : MonoBehaviour
         lookInput = lookValue.Get<Vector2>();
     }
 
-    void OnFire()
+    void OnShoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, barrel.transform.position, weapon.transform.rotation);
-        bullet.GetComponent<Rigidbody2D>().linearVelocity = (crosshair.transform.position - bullet.transform.GetChild(0).position) * 6f;
+        weaponManager.Shoot();
+    }
+
+    void OnWeapon1()
+    {
+        weaponManager.Weapon1();
+    }
+
+    void OnWeapon2()
+    {
+        weaponManager.Weapon2();
     }
 
     void PlayerWalk()

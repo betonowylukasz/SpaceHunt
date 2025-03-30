@@ -18,7 +18,6 @@ public class EnemyBullet : MonoBehaviour
         if (other.tag == "PlayerHitbox")
         {
             Destroy(gameObject);
-            player.GetComponent<PlayerController>().health -= 1;
         }
         if (other.tag == "TilemapCollider")
         {

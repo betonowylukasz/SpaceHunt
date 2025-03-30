@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SciFi_Warehouse_A5_0: 2922483870703849025
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
