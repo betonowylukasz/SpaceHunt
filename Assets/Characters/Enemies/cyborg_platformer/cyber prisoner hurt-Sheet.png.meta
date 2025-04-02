@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cyber prisoner hurt-Sheet_0: -4819685454859585785
+      cyber prisoner hurt-Sheet_1: -2334843923943720124
+      cyber prisoner hurt-Sheet_2: 683410777387904805
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

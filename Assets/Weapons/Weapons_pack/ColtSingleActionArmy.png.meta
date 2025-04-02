@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ColtSingleActionArmy_0: -1174513948085885936
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

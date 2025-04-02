@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cyber prisoner Wall grab-Sheet_0: -156019256751600679
+      cyber prisoner Wall grab-Sheet_1: -2442855528732698428
+      cyber prisoner Wall grab-Sheet_2: -5250736753580508220
+      cyber prisoner Wall grab-Sheet_3: -7137520386237003599
+      cyber prisoner Wall grab-Sheet_4: -8225568518572806120
+      cyber prisoner Wall grab-Sheet_5: 4153104778774234516
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cyber prisoner idle-Sheet_0: 2703037840905140937
+      cyber prisoner idle-Sheet_1: -6718947289767155315
+      cyber prisoner idle-Sheet_2: -3489598391030389364
+      cyber prisoner idle-Sheet_3: -740574274129086948
+      cyber prisoner idle-Sheet_4: -2458429395003555674
+      cyber prisoner idle-Sheet_5: -7122902565375892557
+      cyber prisoner idle-Sheet_6: -7462182474122422044
+      cyber prisoner idle-Sheet_7: -6522320439274231859
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

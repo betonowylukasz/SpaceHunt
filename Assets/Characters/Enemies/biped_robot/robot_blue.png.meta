@@ -1047,7 +1047,44 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      robot_blue_0: 9145775395007462571
+      robot_blue_1: -4860607890074253858
+      robot_blue_10: 841874057336403265
+      robot_blue_11: 4359949641796936471
+      robot_blue_12: 2213309385202538391
+      robot_blue_13: -7179160585408472660
+      robot_blue_14: 8795707678870083979
+      robot_blue_15: 889335715359117895
+      robot_blue_16: -5766732809192824540
+      robot_blue_17: -5615921047698762909
+      robot_blue_18: 3316887011744441109
+      robot_blue_19: 6650570627081140302
+      robot_blue_2: 8140228268070061399
+      robot_blue_20: -4178140591890237709
+      robot_blue_21: 4431303888515880847
+      robot_blue_22: 308692120698435837
+      robot_blue_23: -6962445380662482338
+      robot_blue_24: -1840585413427707579
+      robot_blue_25: -1500484943455604026
+      robot_blue_26: 8838628528887710670
+      robot_blue_27: -725006452692335301
+      robot_blue_28: -8650038469250435092
+      robot_blue_29: 8762478793421846871
+      robot_blue_3: -9021946564528365606
+      robot_blue_30: 9153615292153574898
+      robot_blue_31: -1176971846819731709
+      robot_blue_32: 5829569397621150512
+      robot_blue_33: -8721525838005140143
+      robot_blue_34: 3530166733854563049
+      robot_blue_35: -6218912582490378665
+      robot_blue_36: 105419572899795141
+      robot_blue_4: 1263432289277245519
+      robot_blue_5: 5064581064963462370
+      robot_blue_6: -3836510683004850825
+      robot_blue_7: 4284526442237177846
+      robot_blue_8: -6591333629366143922
+      robot_blue_9: 3747636862986862530
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

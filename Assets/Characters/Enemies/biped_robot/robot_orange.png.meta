@@ -1047,7 +1047,44 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      robot_orange_0: -1560163874359058095
+      robot_orange_1: 3088896712955233473
+      robot_orange_10: -5803424419392032952
+      robot_orange_11: -7038251667655175554
+      robot_orange_12: 6014679357178118423
+      robot_orange_13: -974503145645392985
+      robot_orange_14: 6592315142249933740
+      robot_orange_15: 9086321701990848263
+      robot_orange_16: 6223465113842588010
+      robot_orange_17: 7388010366563386361
+      robot_orange_18: 7063960280321375813
+      robot_orange_19: -1621176719861079812
+      robot_orange_2: -2252703207480684878
+      robot_orange_20: -8338709171270287014
+      robot_orange_21: 5898696745794397755
+      robot_orange_22: -8166953102945744854
+      robot_orange_23: 6708956962132244373
+      robot_orange_24: 737736373481776932
+      robot_orange_25: -2520567684535144787
+      robot_orange_26: -3674767518145978422
+      robot_orange_27: -1051444037904785445
+      robot_orange_28: 3494295936455649619
+      robot_orange_29: 1345085306538305494
+      robot_orange_3: 7053066294894302084
+      robot_orange_30: 3465949521980788317
+      robot_orange_31: 3282215456856861104
+      robot_orange_32: -3233590119072245329
+      robot_orange_33: 2407094828827212819
+      robot_orange_34: -5630812912728467295
+      robot_orange_35: -5484816463383776696
+      robot_orange_36: 5589964451602487491
+      robot_orange_4: 2106411737560030841
+      robot_orange_5: 4268367697967570835
+      robot_orange_6: 8718700935004327554
+      robot_orange_7: -6062314344497165460
+      robot_orange_8: -7435234173951698950
+      robot_orange_9: 7252524629873731571
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -297,7 +297,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cyber prisoner double jump-Sheet_0: -8816148847046985337
+      cyber prisoner double jump-Sheet_1: -6244135794191711611
+      cyber prisoner double jump-Sheet_2: 5496479603049133721
+      cyber prisoner double jump-Sheet_3: -1405513936162230450
+      cyber prisoner double jump-Sheet_4: 2181494570824647254
+      cyber prisoner double jump-Sheet_5: 1891207071797645849
+      cyber prisoner double jump-Sheet_6: -1041665307346253704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

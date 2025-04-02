@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Blunderbuss_0: -1338749480736452202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

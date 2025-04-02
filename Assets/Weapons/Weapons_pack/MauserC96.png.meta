@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MauserC96_0: -8883055844113835373
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

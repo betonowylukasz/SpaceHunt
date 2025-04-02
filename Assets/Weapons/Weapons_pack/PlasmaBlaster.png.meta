@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PlasmaBlaster_0: 3376688519997444315
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

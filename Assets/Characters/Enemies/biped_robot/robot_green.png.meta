@@ -1047,7 +1047,44 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      robot_green_0: -4751893443564779339
+      robot_green_1: 2285696638246189704
+      robot_green_10: -3691920784460181492
+      robot_green_11: 4906762666126487327
+      robot_green_12: -2670394789121419093
+      robot_green_13: 8897968186670440574
+      robot_green_14: -8425452405173810704
+      robot_green_15: -7540924276276930789
+      robot_green_16: 4800501582904592921
+      robot_green_17: 1263011736283061723
+      robot_green_18: -8121341599300788982
+      robot_green_19: -5496604271511076268
+      robot_green_2: 5766399166429875557
+      robot_green_20: -1290401747132198540
+      robot_green_21: -6466836008777198027
+      robot_green_22: -6453667283225178417
+      robot_green_23: -9167947259605489812
+      robot_green_24: -5598266635194803361
+      robot_green_25: 3927339528266528909
+      robot_green_26: 7992824765819967083
+      robot_green_27: -756699869473636857
+      robot_green_28: 6673579731096228597
+      robot_green_29: -676310117556124410
+      robot_green_3: -6751847798217963714
+      robot_green_30: -916672019111409960
+      robot_green_31: -8556324082159903093
+      robot_green_32: 7222313285244757528
+      robot_green_33: -5100943681722032479
+      robot_green_34: 3782347459344270496
+      robot_green_35: -497569935074319723
+      robot_green_36: -2471962324573991167
+      robot_green_4: -5463129475549255582
+      robot_green_5: -1086367933697531546
+      robot_green_6: -5103632025316290578
+      robot_green_7: -5818631972972307734
+      robot_green_8: -5896927289989540530
+      robot_green_9: -133840926750026403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

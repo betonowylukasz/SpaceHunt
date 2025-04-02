@@ -14,12 +14,26 @@ public class PlayerController : MonoBehaviour
     public float crosshairDistance = 0.5f;
     public WeaponManager weaponManager;
 
-    Vector2 movementInput;
-    Vector2 lookInput;
-    Rigidbody2D rb;
-    SpriteRenderer spriteRender;
-    Animator animator;
-    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    private Vector2 movementInput;
+    private Vector2 lookInput;
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRender;
+    private Animator animator;
+    private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+
+    private static PlayerController _instance;
+    public static PlayerController Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -124,7 +138,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
-        print(movementValue);
+        //print(movementValue);
     }
 
     void OnLook(InputValue lookValue)
