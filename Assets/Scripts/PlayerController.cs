@@ -49,11 +49,11 @@ public class PlayerController : MonoBehaviour
         {
             bool success = TryMove(movementInput);
 
-            if(!success)
+            if (!success)
             {
                 success = TryMove(new Vector2(movementInput.x, 0));
 
-                if(!success)
+                if (!success)
                 {
                     success = TryMove(new Vector2(0, movementInput.y));
                 }
@@ -132,6 +132,11 @@ public class PlayerController : MonoBehaviour
                 crosshair.transform.localPosition = direction * crosshairDistance;
             }
         }
+    }
+
+    public void TakeDamage()
+    {
+        print("Player take damage");
     }
 
 

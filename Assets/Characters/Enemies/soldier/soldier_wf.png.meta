@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 1b4d257056ce91549a1e81441a5cd429
+guid: e25680d1317611345809cc04811f780d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7624074300973231111
-    second: soldier_wr (1)_0
+      213: 1546928216157385249
+    second: soldier_wf_0
   - first:
-      213: -7314196033152767476
-    second: soldier_wr (1)_1
+      213: 419930352012948000
+    second: soldier_wf_1
   - first:
-      213: 3119420466659799163
-    second: soldier_wr (1)_2
+      213: 40591267952537207
+    second: soldier_wf_2
   - first:
-      213: 399391481313546272
-    second: soldier_wr (1)_3
+      213: 1455856698884299154
+    second: soldier_wf_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,7 +122,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: soldier_wr (1)_0
+      name: soldier_wf_0
       rect:
         serializedVersion: 2
         x: 3
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 70ca1b2ce272ec960800000000000000
-      internalID: 7624074300973231111
+      spriteID: 122f611440bc77510800000000000000
+      internalID: 1546928216157385249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldier_wr (1)_1
+      name: soldier_wf_1
       rect:
         serializedVersion: 2
         x: 28
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c0aab5ac571ce7a90800000000000000
-      internalID: -7314196033152767476
+      spriteID: 022f2262e64e3d500800000000000000
+      internalID: 419930352012948000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldier_wr (1)_2
+      name: soldier_wf_2
       rect:
         serializedVersion: 2
         x: 53
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b70375413686a4b20800000000000000
-      internalID: 3119420466659799163
+      spriteID: 77e2b4b0b85309000800000000000000
+      internalID: 40591267952537207
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldier_wr (1)_3
+      name: soldier_wf_3
       rect:
         serializedVersion: 2
         x: 78
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 020d20aaf6cea8500800000000000000
-      internalID: 399391481313546272
+      spriteID: 2991fd444fd343410800000000000000
+      internalID: 1455856698884299154
       vertices: []
       indices: 
       edges: []
@@ -223,10 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      soldier_wr (1)_0: 7624074300973231111
-      soldier_wr (1)_1: -7314196033152767476
-      soldier_wr (1)_2: 3119420466659799163
-      soldier_wr (1)_3: 399391481313546272
+      soldier_wf_0: 1546928216157385249
+      soldier_wf_1: 419930352012948000
+      soldier_wf_2: 40591267952537207
+      soldier_wf_3: 1455856698884299154
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

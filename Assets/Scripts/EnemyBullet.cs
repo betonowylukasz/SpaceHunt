@@ -15,8 +15,10 @@ public class EnemyBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "PlayerHitbox")
+        if (other.tag == "Player")
         {
+            PlayerController player = other.GetComponent<PlayerController>();
+            player.TakeDamage();
             Destroy(gameObject);
         }
         if (other.tag == "TilemapCollider")
