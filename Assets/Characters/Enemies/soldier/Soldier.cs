@@ -16,9 +16,11 @@ public class Soldier : Enemy
     private bool isPaused = false;
     private float pauseTimer = 0f;
     private float timeUntilNextPause = 0f;
+    private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         SetNextPause();
     }
 
@@ -83,8 +85,8 @@ public class Soldier : Enemy
 
     void SetNextPause()
     {
-        timeUntilNextPause = Random.Range(5f, 20f);      // czas miêdzy pauzami
-        pauseTimer = Random.Range(1f, 3f);          // d³ugoœæ pauzy
+        timeUntilNextPause = Random.Range(4f, 12f);      // czas miêdzy pauzami
+        pauseTimer = Random.Range(1.5f, 4f);          // d³ugoœæ pauzy
     }
 
     protected override void Movement()
@@ -104,6 +106,7 @@ public class Soldier : Enemy
         if (timeUntilNextPause <= 0f)
         {
             isPaused = true;
+            animator.SetBool("isMoving", false);
             return;
         }
 
@@ -122,6 +125,30 @@ public class Soldier : Enemy
                     success = TryMove(new Vector2(0, directionToPlayer.y));
                 }
             }
+            animator.SetBool("isMoving", success);
+            if (!success) animator.SetInteger("direction", 0);
+
+            if (Abs(directionToPlayer.x) >= Abs(directionToPlayer.y))
+            {
+                if (directionToPlayer.x < 0)
+                {
+                    animator.SetInteger("direction", 4);
+                }
+                else animator.SetInteger("direction", 6);
+            }
+            else
+            {
+                if (directionToPlayer.y < 0)
+                {
+                    animator.SetInteger("direction", 8);
+                }
+                else animator.SetInteger("direction", 2);
+            }
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+            animator.SetInteger("direction", 0);
         }
     }
 
