@@ -45,12 +45,8 @@ GameObject:
   - component: {fileID: 7902903757343054564}
   - component: {fileID: 1774300134187566161}
   - component: {fileID: 3000167927677605113}
-<<<<<<< Updated upstream:Assets/Resources/Enemies/soldier/Soldier.prefab
-  - component: {fileID: 2840913137949137437}
-=======
   - component: {fileID: 999084111685927353}
   - component: {fileID: 6980163396733582160}
->>>>>>> Stashed changes:Assets/Characters/Enemies/soldier/Soldier.prefab
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Enemy
@@ -267,11 +263,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.1
-<<<<<<< Updated upstream:Assets/Resources/Enemies/soldier/Soldier.prefab
---- !u!95 &2840913137949137437
-=======
 --- !u!95 &999084111685927353
->>>>>>> Stashed changes:Assets/Characters/Enemies/soldier/Soldier.prefab
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -293,8 +285,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
-<<<<<<< Updated upstream:Assets/Resources/Enemies/soldier/Soldier.prefab
-=======
 --- !u!82 &6980163396733582160
 AudioSource:
   m_ObjectHideFlags: 0
@@ -392,7 +382,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
->>>>>>> Stashed changes:Assets/Characters/Enemies/soldier/Soldier.prefab
 --- !u!1 &5513014719009588643
 GameObject:
   m_ObjectHideFlags: 0
