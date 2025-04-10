@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 513367611327588073, guid: 1158ce8ddb90cef48a1a643157478d8f, type: 3}
       propertyPath: damage
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 513367611327588073, guid: 1158ce8ddb90cef48a1a643157478d8f, type: 3}
       propertyPath: bulletSpeed
-      value: 5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 2062812317121875511, guid: 1158ce8ddb90cef48a1a643157478d8f, type: 3}
       propertyPath: m_Radius

@@ -11,16 +11,19 @@ public class Soldier : Enemy
     public float weaponRadius = 0.08f;
     public float rotationSpeed = 20f;
     public float minDistanceFromPlayer = 1.5f;
+    public AudioClip shootClip;
 
     private float fireTimer;
     private bool isPaused = false;
     private float pauseTimer = 0f;
     private float timeUntilNextPause = 0f;
     private Animator animator;
+    private AudioSource audioSource;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         SetNextPause();
     }
 
@@ -179,5 +182,6 @@ public class Soldier : Enemy
     protected override void Attack()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        audioSource.PlayOneShot(shootClip);
     }
 }

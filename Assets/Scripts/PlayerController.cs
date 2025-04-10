@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public Camera mainCamera;
     public float crosshairDistance = 0.5f;
     public WeaponManager weaponManager;
+    public AudioClip deadSound;
+    public AudioClip takingDamageSound;
 
     private Vector2 movementInput;
     private Vector2 lookInput;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    private static AudioSource audioSource;
 
     private static PlayerController _instance;
     public static PlayerController Instance
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRender = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -136,7 +140,12 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
-        print("Player take damage");
+        audioSource.PlayOneShot(takingDamageSound);
+    }
+
+    public void DeadSound()
+    {
+        audioSource.PlayOneShot(deadSound);
     }
 
 
