@@ -8,6 +8,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected GameObject player;
     protected Transform playerTransform;
+    public event System.Action OnEnemyDeath;
 
 
     protected Rigidbody2D rb;
@@ -41,5 +42,6 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Die()
     {
         Destroy(gameObject);
+        OnEnemyDeath?.Invoke();
     }
 }

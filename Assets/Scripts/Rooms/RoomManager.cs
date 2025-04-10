@@ -34,6 +34,7 @@ public class RoomManager
         public int Exits;
         public string ExitsLayout;
         public GameObject Prefab;
+        public int EnemiesToSpawn;
     }
 
     private readonly bool _isHub;
@@ -53,7 +54,7 @@ public class RoomManager
 
     public void LoadRoom(Room current, int transitionX, int transitionY)
     {
-        Debug.Log($"Loading room transX={transitionX}, transY={transitionY}, isHub={_isHub}");
+        Debug.Log($"Loading room transX={transitionX}, transY={transitionY}, isHub={_isHub}, current={current}");
 
         if (current != null)
         {
@@ -68,9 +69,15 @@ public class RoomManager
 
         if(current == null)
         {
+            if (_currentRoom != null)
+            {
+                Debug.Log("Attemting to Load room twice! - return");
+                return;
+            }
+
             GenerateLevel(5);
 
-            if(!TryActivateRoom(0, 0))
+            if(!TryActivateRoom(0, 0, Vector2.zero))
             {
                 Debug.LogError("Failed to activate room 0, 0");
             }
@@ -78,14 +85,14 @@ public class RoomManager
             return;
         }
 
-        if(!TryActivateRoom(current.RoomX + transitionX, current.RoomY + transitionY))
+        if(!TryActivateRoom(current.RoomX + transitionX, current.RoomY + transitionY, new Vector2(transitionX, transitionY)))
         {
             current.IsLocked = false;
             Debug.LogError($"Failed to activate room {current.RoomX + transitionX}, {current.RoomY + transitionY}");
         }
     }
 
-    private bool TryActivateRoom(int x, int y)
+    private bool TryActivateRoom(int x, int y, Vector2 entryPoint)
     {
         if(_currentRoom != null && !_currentRoom.IsDestroyed())
         {
@@ -102,7 +109,13 @@ public class RoomManager
 
             _currentRoom = room;
 
-            PlayerController.Instance.transform.position = Vector3.zero;
+            PlayerController.Instance.transform.position = -entryPoint * 3f;
+
+            Debug.Log($"Spawning eneiemies: {roomData.EnemiesToSpawn}");
+            if (TrySpawnEnemies(roomData, -entryPoint))
+            {
+                room.GetComponent<Room>().IsLocked = true;
+            }
 
             return true;
         }
@@ -126,7 +139,8 @@ public class RoomManager
         {
             Exits = exits,
             ExitsLayout = exitsLayout,
-            Prefab = room
+            Prefab = room,
+            EnemiesToSpawn = Random.Range(2, 6)
         });
 
     }
@@ -297,5 +311,66 @@ public class RoomManager
         }
 
         return true;
+    }
+
+    private bool TrySpawnEnemies(RoomData room, Vector2 shift)
+    {
+        if(room.EnemiesToSpawn <= 0)
+        {
+            return false;
+        }
+
+        List<Vector2> spawnPoints = GetSpawnPoints(room.EnemiesToSpawn, shift);
+
+        foreach (Vector2 spawnPoint in spawnPoints)
+        {
+            GameObject enemy = Object.Instantiate(Resources.Load<GameObject>("Enemies/Soldier/Soldier"), spawnPoint, Quaternion.identity);
+            enemy.GetComponent<Enemy>().OnEnemyDeath += () =>
+            {
+                Debug.Log($"Enemy died, remaining: {room.EnemiesToSpawn}");
+                room.EnemiesToSpawn--;
+                if (room.EnemiesToSpawn <= 0)
+                {
+                    Debug.Log($"All enemies in room {room.Prefab.name} are dead, unlocking room");
+                    _currentRoom.GetComponent<Room>().IsLocked = false;
+                }
+            };
+        }
+
+        return true;
+    }
+
+    private List<Vector2> GetSpawnPoints(int num, Vector2 shift)
+    {
+        float xMinShift = -3f;
+        float xMaxShift = 3f;
+        float yMinShift = -3f;
+        float yMaxShift = 3f;
+
+        if (shift.x < 0)
+        {
+            xMinShift = -2f;
+        } 
+        else if(shift.x > 0)
+        {
+            xMaxShift = 2f;
+        }
+
+        if (shift.y < 0)
+        {
+            yMinShift = -2f;
+        }
+        else if (shift.y > 0)
+        {
+            yMaxShift = 2f;
+        }
+
+        List<Vector2> spawnPoints = new();
+        for(int i = 0; i < num; i++)
+        {
+            spawnPoints.Add(new Vector2(Random.Range(xMinShift, xMaxShift), Random.Range(yMinShift, yMaxShift)));
+        }
+
+        return spawnPoints;
     }
 }
