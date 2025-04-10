@@ -324,7 +324,7 @@ public class RoomManager
 
         foreach (Vector2 spawnPoint in spawnPoints)
         {
-            GameObject enemy = Object.Instantiate(Resources.Load<GameObject>("Enemies/Soldier/Soldier"), spawnPoint, Quaternion.identity);
+            GameObject enemy = Object.Instantiate(Resources.Load<GameObject>("Enemies/soldier/Soldier"), spawnPoint, Quaternion.identity);
             enemy.GetComponent<Enemy>().OnEnemyDeath += () =>
             {
                 Debug.Log($"Enemy died, remaining: {room.EnemiesToSpawn}");
