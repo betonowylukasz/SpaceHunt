@@ -6,7 +6,10 @@ public class Soldier : Enemy
     public Transform firePoint;
     public GameObject bulletPrefab;
     public GameObject weapon;
-    public float fireRate = 1.5f;
+    public float minFireTime = 0.5f;
+    public float maxFireTime = 1f;
+    public float minShootTime = 0.6f;
+    public float maxShootTime = 1f;
     public float fireRange = 25f;
     public float weaponRadius = 0.08f;
     public float rotationSpeed = 20f;
@@ -14,6 +17,7 @@ public class Soldier : Enemy
     public AudioClip shootClip;
 
     private float fireTimer;
+    private float nextFireTime;
     private bool isPaused = false;
     private float pauseTimer = 0f;
     private float timeUntilNextPause = 0f;
@@ -24,6 +28,7 @@ public class Soldier : Enemy
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        nextFireTime = Random.Range(minFireTime * 2, maxFireTime * 2);
         SetNextPause();
     }
 
@@ -37,10 +42,11 @@ public class Soldier : Enemy
         fireTimer += Time.deltaTime;
         float distance = Vector2.Distance(transform.position, playerTransform.position);
 
-        if (fireTimer >= 1f / fireRate && distance <= fireRange)
+        if (fireTimer >= nextFireTime && distance <= fireRange)
         {
             fireTimer = 0f;
             Attack();
+            nextFireTime = Random.Range(minShootTime, maxFireTime);
         }
     }
 

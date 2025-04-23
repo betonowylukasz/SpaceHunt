@@ -5,6 +5,15 @@ public class Shotgun : Weapon
     public int pelletCount = 5;
     public float spreadAngle = 15f;
 
+    public AudioClip shootClip;
+
+    private AudioSource audioSource;
+
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public override void Shoot()
     {
         if (Time.time >= nextFireTime)
@@ -15,6 +24,7 @@ public class Shotgun : Weapon
                 Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * spreadRotation);
             }
             nextFireTime = Time.time + 1f / fireRate;
+            audioSource.PlayOneShot(shootClip);
         }
     }
 }

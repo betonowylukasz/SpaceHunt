@@ -15,14 +15,19 @@ public class PlayerController : MonoBehaviour
     public WeaponManager weaponManager;
     public AudioClip deadSound;
     public AudioClip takingDamageSound;
+    public AudioSource walkSource;
+    public float dodgeDuration = 0.6f;
 
+    private bool isDodging = false;
+    private bool canMove = true;
+    private bool isInvincible = false;
     private Vector2 movementInput;
     private Vector2 lookInput;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRender;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    private static AudioSource audioSource;
+    
 
     private static PlayerController _instance;
     public static PlayerController Instance
@@ -44,56 +49,59 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRender = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
+        walkSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
     {
-        if(movementInput != Vector2.zero)
+        if (canMove)
         {
-            bool success = TryMove(movementInput);
-
-            if (!success)
+            if (movementInput != Vector2.zero)
             {
-                success = TryMove(new Vector2(movementInput.x, 0));
+                bool success = TryMove(movementInput);
 
                 if (!success)
                 {
-                    success = TryMove(new Vector2(0, movementInput.y));
-                }
-            }
-            animator.SetBool("isMoving", success);
-            if (!success) animator.SetInteger("direction", 0);
+                    success = TryMove(new Vector2(movementInput.x, 0));
 
-            if (Abs(movementInput.x) >= Abs(movementInput.y))
-            {
-                if (movementInput.x < 0)
-                {
-                    animator.SetInteger("direction", 4);
+                    if (!success)
+                    {
+                        success = TryMove(new Vector2(0, movementInput.y));
+                    }
                 }
-                else animator.SetInteger("direction", 6);
+                animator.SetBool("isMoving", success);
+                if (!success) animator.SetInteger("direction", 0);
+
+                if (Abs(movementInput.x) >= Abs(movementInput.y))
+                {
+                    if (movementInput.x < 0)
+                    {
+                        animator.SetInteger("direction", 4);
+                    }
+                    else animator.SetInteger("direction", 6);
+                }
+                else
+                {
+                    if (movementInput.y < 0)
+                    {
+                        animator.SetInteger("direction", 8);
+                    }
+                    else animator.SetInteger("direction", 2);
+                }
             }
+
             else
             {
-                if (movementInput.y < 0)
-                {
-                    animator.SetInteger("direction", 8);
-                }
-                else animator.SetInteger("direction", 2);
+                animator.SetBool("isMoving", false);
+                animator.SetInteger("direction", 0);
             }
         }
-
-        else
-        {
-            animator.SetBool("isMoving", false);
-            animator.SetInteger("direction", 0);
-        }
-
+        
         MoveCrosshair(lookInput);
 
     }
 
-    private bool TryMove(Vector2 direction)
+    private bool TryMove(Vector2 direction, float speedMultiplayer = 1)
     {
         if (direction != Vector2.zero)
         {
@@ -101,11 +109,11 @@ public class PlayerController : MonoBehaviour
                 direction,
                 movementFilter,
                 castCollisions,
-                moveSpeed * Time.fixedDeltaTime);
+                moveSpeed * speedMultiplayer * Time.fixedDeltaTime);
 
             if (count == 0)
             {
-                rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + direction * moveSpeed * speedMultiplayer * Time.fixedDeltaTime);
                 return true;
             }
             else
@@ -115,6 +123,57 @@ public class PlayerController : MonoBehaviour
         }
         else return false;
     }
+
+    private IEnumerator Dodge()
+    {
+        canMove = false;
+        isDodging = true;
+        isInvincible = true;
+
+        Vector2 dodgeDirection = movementInput != Vector2.zero ? movementInput.normalized : Vector2.right;
+        
+        if (dodgeDirection.x >= 0) animator.Play("janus_rr", 0);
+        else animator.Play("janus_rl", 0);
+
+        float firstPhaseDuration = dodgeDuration / 2f;
+        float secondPhaseDuration = dodgeDuration / 2f;
+        float thirdPhaseDuration = dodgeDuration / 2f;
+        float elapsed = 0f;
+
+        // 🔹 Faza 1 – szybki ruch
+        while (elapsed < firstPhaseDuration)
+        {
+            TryMove(dodgeDirection, 1.3f);
+            elapsed += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        elapsed = 0f;
+
+        // 🔸 Faza 2 – wolniejsze wyhamowanie
+        while (elapsed < secondPhaseDuration)
+        {
+            TryMove(dodgeDirection, 0.7f);
+            elapsed += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        animator.Play("janus_idle", 0);
+        canMove = true;
+        isInvincible = false;
+        elapsed = 0f;
+
+        // 🔸 Faza 3 – odstęp między kolejnym przewrotem
+        while (elapsed < thirdPhaseDuration)
+        {
+            elapsed += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        isDodging = false;
+
+    }
+
 
     private void MoveCrosshair(Vector2 direction)
     {
@@ -140,12 +199,13 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
-        audioSource.PlayOneShot(takingDamageSound);
+        if (isInvincible) return;
+        walkSource.PlayOneShot(takingDamageSound);
     }
 
     public void DeadSound()
     {
-        audioSource.PlayOneShot(deadSound);
+        walkSource.PlayOneShot(deadSound);
     }
 
 
@@ -162,7 +222,10 @@ public class PlayerController : MonoBehaviour
 
     void OnShoot()
     {
-        weaponManager.Shoot();
+        if (canMove)
+        {
+            weaponManager.Shoot();
+        }
     }
 
     void OnWeapon1()
@@ -175,13 +238,21 @@ public class PlayerController : MonoBehaviour
         weaponManager.Weapon2();
     }
 
+    void OnDodge()
+    {
+        if (!isDodging)
+        {
+            StartCoroutine(Dodge());
+        }
+    }
+
     void PlayerWalk()
     {
-        GetComponent<AudioSource>().UnPause();
+        walkSource.UnPause();
     }
 
     void PlayerStop()
     {
-        GetComponent<AudioSource>().Pause();
+        walkSource.Pause();
     }
 }

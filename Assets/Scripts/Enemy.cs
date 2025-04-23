@@ -10,6 +10,8 @@ public abstract class Enemy : MonoBehaviour
     protected Transform playerTransform;
     public event System.Action OnEnemyDeath;
 
+    private bool isDead = false;
+
 
     protected Rigidbody2D rb;
     public ContactFilter2D movementFilter;
@@ -35,12 +37,13 @@ public abstract class Enemy : MonoBehaviour
     public virtual void TakeDamage(float amount)
     {
         health -= amount;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
             Die();
     }
 
     protected virtual void Die()
     {
+        isDead = true;
         Destroy(gameObject);
         OnEnemyDeath?.Invoke();
     }
