@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class WeaponManager : MonoBehaviour
     public GameObject crosshair;
     public float weaponRadius = 0.08f;
     public float rotationSpeed = 20f;
+    public Text ammoText;
 
     void Start()
     {
@@ -72,11 +74,17 @@ public class WeaponManager : MonoBehaviour
         currentWeaponIndex = index;
         currentWeapon = availableWeapons[currentWeaponIndex];
         currentWeapon.Equip();
+        ammoText.text = currentWeapon.ammoInClip.ToString() + "/" + currentWeapon.ammoReserve.ToString();
     }
 
     public void Shoot()
     {
-        currentWeapon.Shoot();
+        if (currentWeapon.CanShoot())
+        {
+            currentWeapon.Shoot();
+            currentWeapon.TakeAmmo();
+            ammoText.text = currentWeapon.ammoInClip.ToString() + "/" + currentWeapon.ammoReserve.ToString();
+        }
     }
 
     public void Weapon1()

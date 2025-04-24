@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using static System.Math;
 using static UnityEngine.RectTransform;
 
@@ -17,6 +18,10 @@ public class PlayerController : MonoBehaviour
     public AudioClip takingDamageSound;
     public AudioSource walkSource;
     public float dodgeDuration = 0.6f;
+    public float dodgeCost = 25f;
+    public float staminaRegenRate = 7.5f;
+    public Slider healthBar;
+    public Slider staminaBar;
 
     private bool isDodging = false;
     private bool canMove = true;
@@ -27,7 +32,9 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    
+    private static AudioSource audioSource;
+    private int health = 100;
+    private float stamina = 100f;
 
     private static PlayerController _instance;
     public static PlayerController Instance
@@ -54,6 +61,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        RtaminaRegen();
+
         if (canMove)
         {
             if (movementInput != Vector2.zero)
@@ -197,10 +206,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void RtaminaRegen()
+    {
+        if (stamina < 100)
+        {
+            stamina += Time.deltaTime * staminaRegenRate;
+            if(stamina > 100) stamina = 100;
+            staminaBar.value = stamina;
+        }
+    }
+
     public void TakeDamage()
     {
         if (isInvincible) return;
-        walkSource.PlayOneShot(takingDamageSound);
+        health -= 10;
+        healthBar.value = health;
+        audioSource.PlayOneShot(takingDamageSound);
     }
 
     public void DeadSound()
@@ -240,9 +261,11 @@ public class PlayerController : MonoBehaviour
 
     void OnDodge()
     {
-        if (!isDodging)
+        if (!isDodging && stamina >= dodgeCost)
         {
             StartCoroutine(Dodge());
+            stamina -= dodgeCost;
+            staminaBar.value = stamina;
         }
     }
 
