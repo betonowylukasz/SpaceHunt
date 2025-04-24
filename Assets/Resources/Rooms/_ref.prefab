@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121efaaecc6844141bb04b69230d5f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomWidth: 1
-  RoomHeight: 1
+  RoomX: 0
+  RoomY: 0
   ExitLayout: 0000
   isFinal: 0
 --- !u!114 &8318216568078344963
@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121efaaecc6844141bb04b69230d5f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomWidth: 1
-  RoomHeight: 1
+  RoomX: 0
+  RoomY: 0
   ExitLayout: 1111
   isFinal: 0
 --- !u!1 &2024793757005523135

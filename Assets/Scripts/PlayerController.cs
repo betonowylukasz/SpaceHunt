@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip deadSound;
     public AudioClip takingDamageSound;
     public AudioSource walkSource;
+    public AudioSource audioSource;
     public float dodgeDuration = 0.6f;
     public float dodgeCost = 25f;
     public float staminaRegenRate = 7.5f;
@@ -32,7 +33,6 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    private static AudioSource audioSource;
     private int health = 100;
     private float stamina = 100f;
 
@@ -146,13 +146,13 @@ public class PlayerController : MonoBehaviour
 
         float firstPhaseDuration = dodgeDuration / 2f;
         float secondPhaseDuration = dodgeDuration / 2f;
-        float thirdPhaseDuration = dodgeDuration / 2f;
+        float thirdPhaseDuration = dodgeDuration / 4f;
         float elapsed = 0f;
 
         // 🔹 Faza 1 – szybki ruch
         while (elapsed < firstPhaseDuration)
         {
-            TryMove(dodgeDirection, 1.3f);
+            TryMove(dodgeDirection, 1.5f);
             elapsed += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
         // 🔸 Faza 2 – wolniejsze wyhamowanie
         while (elapsed < secondPhaseDuration)
         {
-            TryMove(dodgeDirection, 0.7f);
+            TryMove(dodgeDirection, 0.75f);
             elapsed += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour
 
     public void DeadSound()
     {
-        walkSource.PlayOneShot(deadSound);
+        audioSource.PlayOneShot(deadSound);
     }
 
 

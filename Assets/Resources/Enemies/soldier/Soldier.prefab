@@ -84,7 +84,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 6
   moveSpeed: 0.75
-  playerController: {fileID: 0}
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -102,7 +101,10 @@ MonoBehaviour:
   firePoint: {fileID: 5090661502363335924}
   bulletPrefab: {fileID: 7589819116491666308, guid: 00ecc2300b3826d4aadb1f1a2f32f04e, type: 3}
   weapon: {fileID: 5513014719009588643}
-  fireRate: 1.2
+  minFireTime: 0.5
+  maxFireTime: 1
+  minShootTime: 0.6
+  maxShootTime: 1
   fireRange: 25
   weaponRadius: 0.08
   rotationSpeed: 20
@@ -298,7 +300,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: bd52c9c6ebfbda3418162712f87061e6, type: 3}
   m_Resource: {fileID: 8300000, guid: bd52c9c6ebfbda3418162712f87061e6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.35
   m_Pitch: 1.1
   Loop: 0
   Mute: 0
