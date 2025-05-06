@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     private GameObject _hub;
     private GameObject _hubInstance;
     public RoomManager RoomManager { get; private set; }
+    public ScreenFader ScreenFader;
 
     void Awake()
     {

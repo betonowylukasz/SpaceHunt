@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public Slider staminaBar;
 
     private bool isDodging = false;
-    private bool canMove = true;
+    private bool freezePlayer = false;
     private bool isInvincible = false;
     private Vector2 movementInput;
     private Vector2 lookInput;
@@ -61,49 +61,45 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RtaminaRegen();
+        StaminaRegen();
 
-        if (canMove)
+        if (movementInput != Vector2.zero && CanMove())
         {
-            if (movementInput != Vector2.zero)
+            bool success = TryMove(movementInput);
+
+            if (!success)
             {
-                bool success = TryMove(movementInput);
+                success = TryMove(new Vector2(movementInput.x, 0));
 
                 if (!success)
                 {
-                    success = TryMove(new Vector2(movementInput.x, 0));
-
-                    if (!success)
-                    {
-                        success = TryMove(new Vector2(0, movementInput.y));
-                    }
-                }
-                animator.SetBool("isMoving", success);
-                if (!success) animator.SetInteger("direction", 0);
-
-                if (Abs(movementInput.x) >= Abs(movementInput.y))
-                {
-                    if (movementInput.x < 0)
-                    {
-                        animator.SetInteger("direction", 4);
-                    }
-                    else animator.SetInteger("direction", 6);
-                }
-                else
-                {
-                    if (movementInput.y < 0)
-                    {
-                        animator.SetInteger("direction", 8);
-                    }
-                    else animator.SetInteger("direction", 2);
+                    success = TryMove(new Vector2(0, movementInput.y));
                 }
             }
+            animator.SetBool("isMoving", success);
+            if (!success) animator.SetInteger("direction", 0);
 
+            if (Abs(movementInput.x) >= Abs(movementInput.y))
+            {
+                if (movementInput.x < 0)
+                {
+                    animator.SetInteger("direction", 4);
+                }
+                else animator.SetInteger("direction", 6);
+            }
             else
             {
-                animator.SetBool("isMoving", false);
-                animator.SetInteger("direction", 0);
+                if (movementInput.y < 0)
+                {
+                    animator.SetInteger("direction", 8);
+                }
+                else animator.SetInteger("direction", 2);
             }
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+            animator.SetInteger("direction", 0);
         }
         
         MoveCrosshair(lookInput);
@@ -135,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Dodge()
     {
-        canMove = false;
+        freezePlayer = true;
         isDodging = true;
         isInvincible = true;
 
@@ -168,7 +164,7 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.Play("janus_idle", 0);
-        canMove = true;
+        freezePlayer = false;
         isInvincible = false;
         elapsed = 0f;
 
@@ -180,9 +176,7 @@ public class PlayerController : MonoBehaviour
         }
 
         isDodging = false;
-
     }
-
 
     private void MoveCrosshair(Vector2 direction)
     {
@@ -206,7 +200,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RtaminaRegen()
+    private void StaminaRegen()
     {
         if (stamina < 100)
         {
@@ -229,6 +223,10 @@ public class PlayerController : MonoBehaviour
         walkSource.PlayOneShot(deadSound);
     }
 
+    public bool CanMove()
+    {
+        return !freezePlayer && !GameController.Instance.ScreenFader.isFading;
+    }
 
     void OnMove(InputValue movementValue)
     {
@@ -243,7 +241,7 @@ public class PlayerController : MonoBehaviour
 
     void OnShoot()
     {
-        if (canMove)
+        if (CanMove())
         {
             weaponManager.Shoot();
         }
@@ -261,7 +259,7 @@ public class PlayerController : MonoBehaviour
 
     void OnDodge()
     {
-        if (!isDodging && stamina >= dodgeCost)
+        if (!isDodging && stamina >= dodgeCost && CanMove())
         {
             StartCoroutine(Dodge());
             stamina -= dodgeCost;
