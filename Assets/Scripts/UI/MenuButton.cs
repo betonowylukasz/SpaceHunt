@@ -31,7 +31,7 @@ public class MenuButton : MonoBehaviour
         }
         else if (panel != null)
         {
-            panel.SetActive(!panel.activeSelf);
+            MenuManager.Instance.ShowPanel(panel);
         }
         else if (exitGame)
         {
