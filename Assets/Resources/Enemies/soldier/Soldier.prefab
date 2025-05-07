@@ -101,10 +101,8 @@ MonoBehaviour:
   firePoint: {fileID: 5090661502363335924}
   bulletPrefab: {fileID: 7589819116491666308, guid: 00ecc2300b3826d4aadb1f1a2f32f04e, type: 3}
   weapon: {fileID: 5513014719009588643}
-  minFireTime: 0.5
-  maxFireTime: 1
-  minShootTime: 0.6
-  maxShootTime: 1
+  minFireTime: 1
+  maxFireTime: 1.4
   fireRange: 25
   weaponRadius: 0.08
   rotationSpeed: 20

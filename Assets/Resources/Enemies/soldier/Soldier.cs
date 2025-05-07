@@ -6,10 +6,8 @@ public class Soldier : Enemy
     public Transform firePoint;
     public GameObject bulletPrefab;
     public GameObject weapon;
-    public float minFireTime = 0.5f;
-    public float maxFireTime = 1f;
-    public float minShootTime = 0.6f;
-    public float maxShootTime = 1f;
+    public float minFireTime = 0.6f;
+    public float maxFireTime = 0.9f;
     public float fireRange = 25f;
     public float weaponRadius = 0.08f;
     public float rotationSpeed = 20f;
@@ -46,7 +44,7 @@ public class Soldier : Enemy
         {
             fireTimer = 0f;
             Attack();
-            nextFireTime = Random.Range(minShootTime, maxFireTime);
+            nextFireTime = Random.Range(minFireTime, maxFireTime);
         }
     }
 
@@ -134,7 +132,7 @@ public class Soldier : Enemy
                     success = TryMove(new Vector2(0, directionToPlayer.y));
                 }
             }
-            animator.SetBool("isMoving", success);
+            animator.SetBool("isMoving", true);
             if (!success) animator.SetInteger("direction", 0);
 
             if (Abs(directionToPlayer.x) >= Abs(directionToPlayer.y))
