@@ -22,8 +22,9 @@ public class MenuManager : MonoBehaviour
     {
         if (panel != null)
         {
-            _currentPanel.SetActive(false);
+            Debug.Log($"Switching to panel: {panel.name}");
             panel.SetActive(true);
+            _currentPanel.SetActive(false);
             _currentPanel = panel;
         }
     }
