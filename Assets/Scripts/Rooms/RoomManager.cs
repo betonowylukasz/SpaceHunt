@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static RoomManager;
 
 public class RoomManager
 {
@@ -94,33 +96,41 @@ public class RoomManager
 
     private bool TryActivateRoom(int x, int y, Vector2 entryPoint)
     {
-        if(_currentRoom != null && !_currentRoom.IsDestroyed())
-        {
-            Object.Destroy(_currentRoom);
-        }
-
         if (_levelLayout.TryGetValue(x, y, out RoomData roomData))
         {
-            GameObject room = Object.Instantiate(roomData.Prefab, Vector3.zero, Quaternion.identity);
-            Room roomComponent = room.GetComponent<Room>();
-
-            roomComponent.RoomX = x;
-            roomComponent.RoomY = y;
-
-            _currentRoom = room;
-
-            PlayerController.Instance.transform.position = -entryPoint * 3f;
-
-            Debug.Log($"Spawning eneiemies: {roomData.EnemiesToSpawn}");
-            if (TrySpawnEnemies(roomData, -entryPoint))
-            {
-                room.GetComponent<Room>().IsLocked = true;
-            }
-
+            GameController.Instance.StartCoroutine(DoRoomTransistion(x, y, entryPoint, roomData));
             return true;
         }
 
         return false;
+    }
+
+    private IEnumerator DoRoomTransistion(int x, int y, Vector2 entryPoint, RoomData roomData)
+    {
+        yield return GameController.Instance.ScreenFader.FadeOut();
+
+        if (_currentRoom != null && !_currentRoom.IsDestroyed())
+        {
+            Object.Destroy(_currentRoom);
+        }
+
+        GameObject room = Object.Instantiate(roomData.Prefab, Vector3.zero, Quaternion.identity);
+        Room roomComponent = room.GetComponent<Room>();
+
+        roomComponent.RoomX = x;
+        roomComponent.RoomY = y;
+
+        _currentRoom = room;
+
+        PlayerController.Instance.transform.position = -entryPoint * 3f;
+
+        Debug.Log($"Spawning eneiemies: {roomData.EnemiesToSpawn}");
+        if (TrySpawnEnemies(roomData, -entryPoint))
+        {
+            room.GetComponent<Room>().IsLocked = true;
+        }
+
+        yield return GameController.Instance.ScreenFader.FadeIn();
     }
 
     public void AddLevelRoom(GameObject room, string exitsLayout)
