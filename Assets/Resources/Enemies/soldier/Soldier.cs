@@ -20,12 +20,10 @@ public class Soldier : Enemy
     private float pauseTimer = 0f;
     private float timeUntilNextPause = 0f;
     private Animator animator;
-    private AudioSource audioSource;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
         nextFireTime = Random.Range(minFireTime * 2, maxFireTime * 2);
         SetNextPause();
     }
@@ -186,6 +184,6 @@ public class Soldier : Enemy
     protected override void Attack()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        audioSource.PlayOneShot(shootClip);
+        SoundController.Instance.PlaySound(shootClip, 0.35f, 1f);
     }
 }

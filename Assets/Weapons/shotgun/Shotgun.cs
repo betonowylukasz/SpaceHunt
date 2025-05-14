@@ -24,7 +24,7 @@ public class Shotgun : Weapon
                 Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * spreadRotation);
             }
             nextFireTime = Time.time + 1f / fireRate;
-            audioSource.PlayOneShot(shootClip);
+            SoundController.Instance.PlaySound(shootClip, 0.3f, 0.75f);
         }
     }
 }

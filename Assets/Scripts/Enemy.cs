@@ -5,6 +5,7 @@ public abstract class Enemy : MonoBehaviour
 {
     public float health;
     public float moveSpeed;
+    public AudioClip deathSound;
 
     protected GameObject player;
     protected Transform playerTransform;
@@ -44,6 +45,7 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Die()
     {
         isDead = true;
+        SoundController.Instance.PlaySound(deathSound, 0.2f, 0.8f);
         Destroy(gameObject);
         OnEnemyDeath?.Invoke();
     }

@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     public WeaponManager weaponManager;
     public AudioClip deadSound;
     public AudioClip takingDamageSound;
-    public AudioSource walkSource;
-    public AudioSource audioSource;
     public float dodgeDuration = 0.6f;
     public float dodgeCost = 25f;
     public float staminaRegenRate = 7.5f;
@@ -56,7 +54,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRender = GetComponent<SpriteRenderer>();
-        walkSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -104,6 +101,11 @@ public class PlayerController : MonoBehaviour
         
         MoveCrosshair(lookInput);
 
+        if (animator.GetBool("isMoving"))
+        {
+            PlayerWalk();
+        }
+        else PlayerStop();
     }
 
     private bool TryMove(Vector2 direction, float speedMultiplayer = 1)
@@ -145,7 +147,7 @@ public class PlayerController : MonoBehaviour
         float thirdPhaseDuration = dodgeDuration / 4f;
         float elapsed = 0f;
 
-        // 🔹 Faza 1 – szybki ruch
+        // Faza 1 – szybki ruch
         while (elapsed < firstPhaseDuration)
         {
             TryMove(dodgeDirection, 1.5f);
@@ -155,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
         elapsed = 0f;
 
-        // 🔸 Faza 2 – wolniejsze wyhamowanie
+        // Faza 2 – wolniejsze wyhamowanie
         while (elapsed < secondPhaseDuration)
         {
             TryMove(dodgeDirection, 0.75f);
@@ -168,7 +170,7 @@ public class PlayerController : MonoBehaviour
         isInvincible = false;
         elapsed = 0f;
 
-        // 🔸 Faza 3 – odstęp między kolejnym przewrotem
+        // Faza 3 – odstęp między kolejnym przewrotem
         while (elapsed < thirdPhaseDuration)
         {
             elapsed += Time.fixedDeltaTime;
@@ -215,12 +217,12 @@ public class PlayerController : MonoBehaviour
         if (isInvincible) return;
         health -= 10;
         healthBar.value = health;
-        audioSource.PlayOneShot(takingDamageSound);
+        SoundController.Instance.PlaySound(takingDamageSound);
     }
 
     public void DeadSound()
     {
-        audioSource.PlayOneShot(deadSound);
+        SoundController.Instance.PlaySound(deadSound);
     }
 
     public bool CanMove()
@@ -269,11 +271,11 @@ public class PlayerController : MonoBehaviour
 
     void PlayerWalk()
     {
-        walkSource.UnPause();
+        SoundController.Instance.StartWalking();
     }
 
     void PlayerStop()
     {
-        walkSource.Pause();
+        SoundController.Instance.StopWalking();
     }
 }

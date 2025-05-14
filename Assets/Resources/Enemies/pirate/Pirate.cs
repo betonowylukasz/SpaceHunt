@@ -198,7 +198,7 @@ public class Pirate : Enemy
         Quaternion rotation = Quaternion.FromToRotation(Vector3.right, direction);
 
         GameObject bullet = Instantiate(blasterBulletPrefab, blasterFirePoint.position, rotation);
-        audioSource.PlayOneShot(shootClip);
+        SoundController.Instance.PlaySound(shootClip, 0.35f, 1f);
     }
 
 
@@ -214,7 +214,7 @@ public class Pirate : Enemy
             GameObject pellet = Instantiate(shotgunBulletPrefab, shotgunFirePoint.position, rotation);
         }
 
-        audioSource.PlayOneShot(shootClip);
+        SoundController.Instance.PlaySound(shootClip, 0.4f, 0.8f);
     }
 
     void FireRadial()
@@ -228,7 +228,7 @@ public class Pirate : Enemy
             GameObject bullet = Instantiate(blasterBulletPrefab, transform.position, rotation);
         }
 
-        audioSource.PlayOneShot(shootClip);
+        SoundController.Instance.PlaySound(shootClip, 0.4f, 0.9f);
     }
 
     protected override void Movement()

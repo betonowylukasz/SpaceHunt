@@ -196,6 +196,6 @@ public class Soldier2 : Enemy
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * rotation);
         }
-        audioSource.PlayOneShot(shootClip);
+        SoundController.Instance.PlaySound(shootClip, 0.4f, 0.8f);
     }
 }

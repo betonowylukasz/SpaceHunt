@@ -16,7 +16,7 @@ public class Blaster : Weapon
         {
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             nextFireTime = Time.time + 1f / fireRate;
-            audioSource.PlayOneShot(shootClip);
+            SoundController.Instance.PlaySound(shootClip, 0.25f, 1f);
         }
     }
 }
