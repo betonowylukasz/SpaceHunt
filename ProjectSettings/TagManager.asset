@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TilemapCollider
   - LevelExit
+  - MenuPanel
   layers:
   - Default
   - TransparentFX
