@@ -11,6 +11,8 @@ public class SoundController : MonoBehaviour
     private AudioSource sfxSource;
     private AudioSource walkSource;
 
+    private float sfxVolume = 0.4f;
+
     void Awake()
     {
         if(Instance != null && Instance != this)
@@ -32,6 +34,12 @@ public class SoundController : MonoBehaviour
         walkSource.clip = walkClip;
         walkSource.loop = true;
         walkSource.Pause();
+
+        sfxVolume = GameSettings.Instance.GetSFXVolume();
+        sfxSource.volume = sfxVolume;
+
+        musicSource.volume = GameSettings.Instance.GetMusicVolume();
+        walkSource.volume = GameSettings.Instance.GetSFXVolume() * 0.75f;
     }
 
     // Update is called once per frame
@@ -42,7 +50,7 @@ public class SoundController : MonoBehaviour
 
     public void PlaySound(AudioClip audioClip, float volume = 0.4f, float pitch = 1f)
     {
-        sfxSource.volume = volume;
+        sfxSource.volume = volume * sfxVolume;
         sfxSource.pitch = pitch;
         sfxSource.PlayOneShot(audioClip);
     }
