@@ -343,6 +343,7 @@ public class RoomManager
                 {
                     Debug.Log($"All enemies in room {room.Prefab.name} are dead, unlocking room");
                     _currentRoom.GetComponent<Room>().IsLocked = false;
+                    UpgradeManager.Instance.ShowUpgrades();
                 }
             };
         }

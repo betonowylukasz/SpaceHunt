@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip deadSound;
     public AudioClip takingDamageSound;
     public float dodgeDuration = 0.6f;
-    public float dodgeCost = 25f;
+    public float dodgeCost = 20f;
     public float staminaRegenRate = 7.5f;
     public Slider healthBar;
     public Slider staminaBar;
@@ -31,8 +31,9 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    private int health = 100;
+    private float health = 100;
     private float stamina = 100f;
+    private float damageRedution = 0f;
 
     private static PlayerController _instance;
     public static PlayerController Instance
@@ -202,6 +203,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void UpgradePlayer(Upgrade upgrade)
+    {
+        switch (upgrade.type)
+        {
+            case Upgrade.UpgradeType.Health:
+                health += upgrade.value;
+                healthBar.value = health;
+                break;
+            case Upgrade.UpgradeType.DamageReduction:
+                damageRedution += 0.1f * upgrade.value;
+                break;
+            case Upgrade.UpgradeType.Stamina:
+                dodgeCost -= upgrade.value;
+                break;
+            case Upgrade.UpgradeType.StaminaRegeneration:
+                staminaRegenRate = 0.1f * upgrade.value;
+                break;
+            case Upgrade.UpgradeType.Ammo:
+                Weapon[] weapons = weaponManager.GetWeapons();
+                for (int i=0;i<weapons.Length;i++)
+                {
+                    weapons[i].AddAmmo(upgrade.value);
+                }
+                break;
+            case Upgrade.UpgradeType.Speed:
+                moveSpeed += 0.01f * upgrade.value;
+                break;
+        }
+    }
+
     private void StaminaRegen()
     {
         if (stamina < 100)
@@ -215,7 +246,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage()
     {
         if (isInvincible) return;
-        health -= 10;
+        health -= Max(1, 10f - damageRedution);
         healthBar.value = health;
         SoundController.Instance.PlaySound(takingDamageSound);
     }
@@ -264,7 +295,7 @@ public class PlayerController : MonoBehaviour
         if (!isDodging && stamina >= dodgeCost && CanMove())
         {
             StartCoroutine(Dodge());
-            stamina -= dodgeCost;
+            stamina -= Max(1, dodgeCost);
             staminaBar.value = stamina;
         }
     }

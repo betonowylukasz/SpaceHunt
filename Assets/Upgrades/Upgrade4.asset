@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1c3732093e7fb43932d90b0f26f73b, type: 3}
+  m_Name: Upgrade4
+  m_EditorClassIdentifier: 
+  upgradeName: Zdrowie
+  description: "Uzupe\u0142nij zdrowie"
+  icon: {fileID: 2832654934552403627, guid: 7839df6a3b0c77248a5b26e727d47d9e, type: 3}
+  type: 0
+  value: 10

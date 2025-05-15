@@ -87,6 +87,11 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    public Weapon[] GetWeapons()
+    {
+        return availableWeapons;
+    }    
+
     public void Weapon1()
     {
         currentWeaponIndex = 0;

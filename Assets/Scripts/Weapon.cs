@@ -39,5 +39,10 @@ public abstract class Weapon : MonoBehaviour
     {
         return ammoInClip > 0 && Time.time >= nextFireTime;
     }
+
+    public void AddAmmo(int magazines)
+    {
+        ammoReserve += maxClip * magazines;
+}
 }
 
