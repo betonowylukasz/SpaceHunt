@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
                 continue;
             }
 
-            RoomManager.AddLevelRoom(room, r.ExitLayout);
+            RoomManager.AddLevelRoom(room, r.ExitLayout, r.isFinal);
         }
 
         RoomManager.LoadRoom(null, 0, 0);

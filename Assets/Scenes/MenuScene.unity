@@ -265,6 +265,34 @@ PrefabInstance:
       propertyPath: ButtonTextValue
       value: "Powr\xF3t"
       objectReference: {fileID: 0}
+    - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
+      propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
+      propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
+      propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7179359792508616545, guid: 6ee6350a71dea1f4ca3bf37a65eaac18, type: 3}
+    - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
+      propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
+      propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
+      propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameSettings, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
+      propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8119931309424325543, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -894,6 +922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760431081}
   - component: {fileID: 760431082}
+  - component: {fileID: 760431083}
   m_Layer: 5
   m_Name: SfxSlider
   m_TagString: Untagged
@@ -974,7 +1003,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1151505493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameSettings, Assembly-CSharp
         m_MethodName: SetSFXVolume
         m_Mode: 0
@@ -986,6 +1015,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &760431083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760431080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba0c3a3d84e496488c40d5e249c5c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &764827788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,52 +1294,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142135548}
   m_CullTransparentMesh: 1
---- !u!1 &1151505492
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1151505494}
-  - component: {fileID: 1151505493}
-  m_Layer: 0
-  m_Name: GameSettings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1151505493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151505492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82517b747fced1c4fb17cb0fefddd8c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicVolume: 1
-  sfxVolume: 1
---- !u!4 &1151505494
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151505492}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 535.21564, y: 223.0825, z: 2.4697378}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1249563282 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8119931309424325543, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
@@ -1733,6 +1728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1493833612}
   - component: {fileID: 1493833613}
+  - component: {fileID: 1493833614}
   m_Layer: 5
   m_Name: MusicSlider
   m_TagString: Untagged
@@ -1813,7 +1809,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1151505493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameSettings, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 0
@@ -1825,6 +1821,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1493833614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493833611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8361d89866c85f4d9d1432025f47d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1591516140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3054,4 +3062,3 @@ SceneRoots:
   - {fileID: 2139875646}
   - {fileID: 2082288010}
   - {fileID: 1128993155}
-  - {fileID: 1151505494}

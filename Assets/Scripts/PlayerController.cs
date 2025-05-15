@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
     public float dodgeDuration = 0.6f;
     public float dodgeCost = 25f;
     public float staminaRegenRate = 7.5f;
-    public Slider healthBar;
-    public Slider staminaBar;
+    public UnityEngine.UI.Slider healthBar;
+    public UnityEngine.UI.Slider staminaBar;
 
     private bool isDodging = false;
     private bool freezePlayer = false;

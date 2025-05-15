@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour
@@ -8,6 +9,8 @@ public class MenuButton : MonoBehaviour
 
     private TMP_Text _buttonText;
 
+    [SerializeField]
+    private UnityEvent onClickEvent;
     [SerializeField]
     private string sceneName;
     [SerializeField]
@@ -24,6 +27,8 @@ public class MenuButton : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("Button clicked: " + ButtonTextValue);
+
+        onClickEvent.Invoke();
 
         if (sceneName != "")
         {
