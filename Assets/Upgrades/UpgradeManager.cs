@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 using System.Linq;
 
 public class UpgradeManager : MonoBehaviour
@@ -17,63 +17,37 @@ public class UpgradeManager : MonoBehaviour
     [Header("Available Upgrades")]
     public List<Upgrade> allUpgrades;
 
-    private UpgradeAction inputActions;
-    private Vector2 navigationInput;
-    private bool inputLocked = false;
-
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
-
-        inputActions = new UpgradeAction();
-
-        inputActions.UI.Navigate.performed += ctx => OnNavigate(ctx.ReadValue<Vector2>());
-        inputActions.UI.Select.performed += ctx => OnSelect();
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        inputActions.UI.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.UI.Disable();
-    }
-
-    private void OnNavigate(Vector2 direction)
-    {
-        if (!upgradePanel.activeInHierarchy || inputLocked)
-            return;
-
-        if (direction.x < -0.5f)
-        {
-            inputLocked = true;
-            currentSelectedIndex = (currentSelectedIndex - 1 + cardUIs.Count) % cardUIs.Count;
-            HighlightCard(currentSelectedIndex);
-            Invoke(nameof(UnlockInput), 0.2f); // debounce
-        }
-        else if (direction.x > 0.5f)
-        {
-            inputLocked = true;
-            currentSelectedIndex = (currentSelectedIndex + 1) % cardUIs.Count;
-            HighlightCard(currentSelectedIndex);
-            Invoke(nameof(UnlockInput), 0.2f); // debounce
-        }
-    }
-
-    private void OnSelect()
-    {
+        // Nie reagujemy, jeœli panel nieaktywny
         if (!upgradePanel.activeInHierarchy)
             return;
 
-        cardUIs[currentSelectedIndex].OnClick();
-    }
+        // Nawigacja w lewo
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            currentSelectedIndex = (currentSelectedIndex - 1 + cardUIs.Count) % cardUIs.Count;
+            HighlightCard(currentSelectedIndex);
+        }
 
-    private void UnlockInput()
-    {
-        inputLocked = false;
+        // Nawigacja w prawo
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            currentSelectedIndex = (currentSelectedIndex + 1) % cardUIs.Count;
+            HighlightCard(currentSelectedIndex);
+        }
+
+        // Zatwierdzenie wyboru
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton2)) // X na padzie
+        {
+            cardUIs[currentSelectedIndex].OnClick();
+        }
     }
 
     public void ShowUpgrades()
@@ -91,6 +65,7 @@ public class UpgradeManager : MonoBehaviour
             button.onClick.AddListener(cardUIs[i].OnClick);
         }
 
+        // Reset wyboru i podœwietlenia
         currentSelectedIndex = 0;
         HighlightCard(currentSelectedIndex);
     }
@@ -106,7 +81,14 @@ public class UpgradeManager : MonoBehaviour
     {
         for (int i = 0; i < cardUIs.Count; i++)
         {
-            cardUIs[i].transform.localScale = (i == index) ? Vector3.one * 1.1f : Vector3.one;
+            if (i == index)
+            {
+                cardUIs[i].transform.localScale = Vector3.one * 1.1f;
+            }
+            else
+            {
+                cardUIs[i].transform.localScale = Vector3.one;
+            }
         }
     }
 }

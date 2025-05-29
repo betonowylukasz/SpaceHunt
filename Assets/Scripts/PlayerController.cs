@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,13 @@ public class PlayerController : MonoBehaviour
     public float staminaRegenRate = 7.5f;
     public UnityEngine.UI.Slider healthBar;
     public UnityEngine.UI.Slider staminaBar;
+
+    public event Action OnMoveAction;
+    public event Action OnDodgeAction;
+    public event Action OnLookAction;
+    public event Action OnShootAction;
+    public event Action OnWeapon1Action;
+    public event Action OnWeapon2Action;
 
     private bool isDodging = false;
     private bool freezePlayer = false;
@@ -258,18 +266,20 @@ public class PlayerController : MonoBehaviour
 
     public bool CanMove()
     {
-        return !freezePlayer && !GameController.Instance.ScreenFader.isFading;
+        if (GameController.Instance) return !freezePlayer && !GameController.Instance.ScreenFader.isFading;
+        else return !freezePlayer;
     }
 
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
-        //print(movementValue);
+        if (movementInput.sqrMagnitude > 0.1f) OnMoveAction?.Invoke();
     }
 
     void OnLook(InputValue lookValue)
     {
         lookInput = lookValue.Get<Vector2>();
+        if (lookInput.sqrMagnitude > 0.1f) OnLookAction?.Invoke();
     }
 
     void OnShoot()
@@ -277,17 +287,20 @@ public class PlayerController : MonoBehaviour
         if (CanMove())
         {
             weaponManager.Shoot();
+            OnShootAction?.Invoke();
         }
     }
 
     void OnWeapon1()
     {
         weaponManager.Weapon1();
+        OnWeapon1Action?.Invoke();
     }
 
     void OnWeapon2()
     {
         weaponManager.Weapon2();
+        OnWeapon2Action?.Invoke();
     }
 
     void OnDodge()
@@ -297,6 +310,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dodge());
             stamina -= Max(1, dodgeCost);
             staminaBar.value = stamina;
+            OnDodgeAction?.Invoke();
         }
     }
 
