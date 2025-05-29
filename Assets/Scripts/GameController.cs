@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     private GameObject _hubInstance;
     public RoomManager RoomManager { get; private set; }
     public ScreenFader ScreenFader;
+    public GameObject RoomExitPrefab;
 
     void Awake()
     {
@@ -49,7 +50,7 @@ public class GameController : MonoBehaviour
                 continue;
             }
 
-            RoomManager.AddLevelRoom(room, r.ExitLayout, r.isFinal);
+            RoomManager.AddLevelRoom(room, r.Exits.Length, r.isFinal);
         }
 
         RoomManager.LoadRoom(null, 0, 0);
