@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Room;
 
 public class RoomManager
 {
@@ -55,7 +56,6 @@ public class RoomManager
     public class RoomData
     {
         public int Exits;
-        public string ExitsLayout;
         public GameObject Prefab;
         public bool IsFinal;
     }
@@ -64,7 +64,16 @@ public class RoomManager
     {
         public RoomData RoomData;
         public int EnemiesToSpawn;
+        public Room.RoomExitLayout Layout = 0;
         public bool HasBoss => EnemiesToSpawn == 0 && RoomData.IsFinal;
+    }
+
+    public class AppendQueueItem
+    {
+        public LayoutRoom currentRoom;
+        public int currentX;
+        public int currentY;
+        public Room.RoomExitLayout add = 0;
     }
 
     private readonly bool _isHub;
@@ -107,7 +116,7 @@ public class RoomManager
 
             GenerateLevel(5);
 
-            if(!TryActivateRoom(0, 0, Vector2.zero))
+            if(!TryActivateRoom(0, 0, 0, 0))
             {
                 Debug.LogError("Failed to activate room 0, 0");
             }
@@ -115,25 +124,25 @@ public class RoomManager
             return;
         }
 
-        if(!TryActivateRoom(current.RoomX + transitionX, current.RoomY + transitionY, new Vector2(transitionX, transitionY)))
+        if (!TryActivateRoom(current.RoomX + transitionX, current.RoomY + transitionY, transitionX, transitionY))
         {
             current.IsLocked = false;
             Debug.LogError($"Failed to activate room {current.RoomX + transitionX}, {current.RoomY + transitionY}");
         }
     }
 
-    private bool TryActivateRoom(int x, int y, Vector2 entryPoint)
+    private bool TryActivateRoom(int x, int y, int transitionX, int transitionY)
     {
         if (_levelLayout.TryGetValue(x, y, out LayoutRoom roomData))
         {
-            GameController.Instance.StartCoroutine(DoRoomTransistion(x, y, entryPoint, roomData));
+            GameController.Instance.StartCoroutine(DoRoomTransistion(x, y, roomData, transitionX, transitionY));
             return true;
         }
 
         return false;
     }
 
-    private IEnumerator DoRoomTransistion(int x, int y, Vector2 entryPoint, LayoutRoom roomData)
+    private IEnumerator DoRoomTransistion(int x, int y, LayoutRoom roomData, int transitionX, int transitionY)
     {
         yield return GameController.Instance.ScreenFader.FadeOut();
 
@@ -144,39 +153,48 @@ public class RoomManager
 
         GameObject room = Object.Instantiate(roomData.RoomData.Prefab, Vector3.zero, Quaternion.identity);
         Room roomComponent = room.GetComponent<Room>();
+        roomComponent.SetLayout(roomData.Layout);
 
         roomComponent.RoomX = x;
         roomComponent.RoomY = y;
 
         _currentRoom = room;
 
-        PlayerController.Instance.transform.position = -entryPoint * 3f;
+        Vector2 entryPoint = Vector2.zero;
+        Room.RoomExitDefinition target = System.Array.Find(roomComponent.Exits, e => e.TransitionX == -transitionX && e.TransitionY == -transitionY);
+        if (target != null)
+        {
+            Debug.Log($"Found target exit: {target.PositionX}, {target.PositionY} for transitionX={transitionX}, transitionY={transitionY}");
+            entryPoint = new Vector2((target.PositionX + transitionX * 1.5f) * 0.64f + 0.32f, (target.PositionY + transitionY * 1.5f) * 0.64f + 0.32f);
+        }
+
+        PlayerController.Instance.transform.position = entryPoint;
+
+        bool hasEnemies = false;
+        roomComponent.IsLocked = true;
 
         Debug.Log($"Spawning eneiemies: {roomData.EnemiesToSpawn}");
-        if (TrySpawnEnemies(roomData, -entryPoint))
+        if (TrySpawnEnemies(roomData, entryPoint))
         {
-            room.GetComponent<Room>().IsLocked = true;
+            hasEnemies = true;
         }
 
         yield return GameController.Instance.ScreenFader.FadeIn();
+
+        if(!hasEnemies)
+        {
+            Debug.Log($"Room {room.name} has no enemies, unlocking room");
+            roomComponent.IsLocked = false;
+        }
     }
 
-    public void AddLevelRoom(GameObject room, string exitsLayout, bool isFinal)
+    public void AddLevelRoom(GameObject room, int exits, bool isFinal)
     {
-        int exits = 0;
-
-        for (int i = 0; i < exitsLayout.Length; i++)
-        {
-            if (exitsLayout[i] == '1')
-            {
-                exits++;
-            }
-        }
+        Debug.Log($"Adding room {room.name} with exits {exits}, isFinal={isFinal}");
 
         _levelRooms.Add(new RoomData
         {
             Exits = exits,
-            ExitsLayout = exitsLayout,
             Prefab = room,
             IsFinal = isFinal
         });
@@ -186,13 +204,27 @@ public class RoomManager
     private void GenerateLevel(int rooms)
     {
         Debug.Log($"Generating level with {rooms} rooms");
-        AppendRoomToLayout(_levelRooms[Random.Range(0, _levelRooms.Count)], 0, 0, ref rooms);
+
+        RoomData[] validRooms = _levelRooms.Where(r => !r.IsFinal).ToArray();
+        LayoutRoom initialRoom = new LayoutRoom
+        {
+            RoomData = validRooms[Random.Range(0, validRooms.Length)],
+            EnemiesToSpawn = 0
+        };
+
+        _levelLayout.Add(0, 0, initialRoom);
+
+        rooms -= 1;
+
+        AppendRoomsToLayout(initialRoom, 0, 0, ref rooms);
         AddFinalRoom();
     }
 
-    public void AppendRoomToLayout(RoomData currentRoom, int currentX, int currentY, ref int rooms)
+    public void AppendRoomsToLayout(LayoutRoom currentRoom, int currentX, int currentY, ref int rooms, Room.RoomExitLayout add = 0)
     {
-        Debug.Log($"Appending room {currentRoom.Prefab.name} at {currentX}, {currentY} with exits {currentRoom.ExitsLayout}");
+        Debug.Log($"Appending room {currentRoom.RoomData.Prefab.name} at {currentX}, {currentY} : {currentRoom.RoomData.Exits}, {rooms}");
+
+        currentRoom.Layout |= add;
 
         if (rooms <= 0)
         {
@@ -200,170 +232,108 @@ public class RoomManager
             return;
         }
 
-        rooms -= currentRoom.Exits;
-        _levelLayout.Add(currentX, currentY, new LayoutRoom
-        {
-            RoomData = currentRoom,
-            EnemiesToSpawn = Random.Range(2, 5)
-        });
+        int exits = Random.Range(1, System.Math.Min(currentRoom.RoomData.Exits, rooms) + 1);
+        int rng = Random.Range(0, 4);
+        Debug.Log($"New rooms to spawn: {exits}");
 
-        for (int i = 0; i < currentRoom.Exits; i++)
+        Room.RoomExitLayout layout = 0;
+
+        List<AppendQueueItem> queue = new List<AppendQueueItem>();
+
+        for (int i = 0; i < exits; i++)
         {
-            for(int j = 0; j < currentRoom.ExitsLayout.Length; j++)
+            for(int j = 0; j < 4; j++)
             {
-                if (currentRoom.ExitsLayout[j] != '1')
+                int moveIdx = (rng + j) % 4;
+
+                int moveX = 0;
+                int moveY = 0;
+                Room.RoomExitLayout addExit = 0;
+
+                switch (moveIdx)
                 {
+                    case 0: // North
+                        moveY = 1;
+                        addExit = Room.RoomExitLayout.South;
+                        break;
+                    case 1: // East
+                        moveX = 1;
+                        addExit = Room.RoomExitLayout.West;
+                        break;
+                    case 2: // South
+                        moveY = -1;
+                        addExit = Room.RoomExitLayout.North;
+                        break;
+                    case 3: // West
+                        moveX = -1;
+                        addExit = Room.RoomExitLayout.East;
+                        break;
+                }
+
+                if(_levelLayout.TryGetValue(currentX + moveX, currentY + moveY, out _))
+                {
+                    Debug.Log($"Room already exists at {currentX + moveX}, {currentY + moveY}");
                     continue;
                 }
 
-                int nextX = currentX;
-                int nextY = currentY;
+                Debug.Log($"Adding room at {currentX + moveX}, {currentY + moveY}");
 
-                switch (j)
+                RoomData[] validRooms = _levelRooms.Where(r => !r.IsFinal).ToArray();
+                LayoutRoom newRoom = new LayoutRoom
                 {
-                    case 0:
-                        nextY++;
-                        break;
-                    case 1:
-                        nextX++;
-                        break;
-                    case 2:
-                        nextY--;
-                        break;
-                    case 3:
-                        nextX--;
-                        break;
+                    RoomData = validRooms[Random.Range(0, validRooms.Length)],
+                    EnemiesToSpawn = Random.Range(2, 5)
+                };
+
+                _levelLayout.Add(currentX + moveX, currentY + moveY, newRoom);
+
+                rooms -= 1;
+
+                if(moveY == 1)
+                {
+                    layout |= Room.RoomExitLayout.North;
+                }
+                else if (moveX == 1)
+                {
+                    layout |= Room.RoomExitLayout.East;
+                }
+                else if (moveY == -1)
+                {
+                    layout |= Room.RoomExitLayout.South;
+                }
+                else if (moveX == -1)
+                {
+                    layout |= Room.RoomExitLayout.West;
                 }
 
-                if (_levelLayout.TryGetValue(nextX, nextY, out _))
+                queue.Add(new AppendQueueItem
                 {
-                    continue;
-                }
+                    currentRoom = newRoom,
+                    currentX = currentX + moveX,
+                    currentY = currentY + moveY,
+                    add = addExit
+                });
 
-                if (TryGetValidRoom(nextX, nextY, rooms, out RoomData nextRoom, out int forced))
-                {
-                    rooms += forced;
-                    AppendRoomToLayout(nextRoom, nextX, nextY, ref rooms);
-                }
-                else
-                {
-                    Debug.LogError($"Failed to get valid room for {nextX}, {nextY}");
-                }
+                break;
             }
+        }
+
+        currentRoom.Layout |= layout;
+
+        foreach (AppendQueueItem item in queue)
+        {
+            AppendRoomsToLayout(item.currentRoom, item.currentX, item.currentY, ref rooms, item.add);
         }
     }
 
-    private bool TryGetValidRoom(int x, int y, int exits, out RoomData next, out int forced)
-    {
-        string targetLayout = "";
-        int forcedExits = 0;
-
-        if (_levelLayout.TryGetValue(x, y + 1, out LayoutRoom roomTop))
-        {
-            targetLayout += roomTop.RoomData.ExitsLayout[2];
-
-            if (roomTop.RoomData.ExitsLayout[2] == '1')
-            {
-                forcedExits++;
-            }
-        }
-        else
-        {
-            targetLayout += "?";
-        }
-
-        if (_levelLayout.TryGetValue(x + 1, y, out LayoutRoom roomRight))
-        {
-            targetLayout += roomRight.RoomData.ExitsLayout[3];
-
-            if (roomRight.RoomData.ExitsLayout[3] == '1')
-            {
-                forcedExits++;
-            }
-        }
-        else
-        {
-            targetLayout += "?";
-        }
-
-        if (_levelLayout.TryGetValue(x, y - 1, out LayoutRoom roomBottom))
-        {
-            targetLayout += roomBottom.RoomData.ExitsLayout[0];
-
-            if (roomBottom.RoomData.ExitsLayout[0] == '1')
-            {
-                forcedExits++;
-            }
-        }
-        else
-        {
-            targetLayout += "?";
-        }
-
-        if (_levelLayout.TryGetValue(x - 1, y, out LayoutRoom roomLeft))
-        {
-            targetLayout += roomLeft.RoomData.ExitsLayout[1];
-
-            if (roomLeft.RoomData.ExitsLayout[1] == '1')
-            {
-                forcedExits++;
-            }
-        }
-        else
-        {
-            targetLayout += "?";
-        }
-
-        Debug.Log($"Target layout for {x}, {y} is {targetLayout}, left exits: {exits}");
-
-        List<RoomData> validRooms = new();
-
-        foreach (RoomData room in _levelRooms.Where(r => !r.IsFinal && r.Exits - forcedExits <= exits))
-        {
-            if (RoomLayoutMatch(targetLayout, room.ExitsLayout))
-            {
-                validRooms.Add(room);
-            }
-        }
-
-        if (validRooms.Count == 0)
-        {
-            next = null;
-            forced = 0;
-            return false;
-        }
-
-        next = validRooms[Random.Range(0, validRooms.Count)];
-        forced = forcedExits;
-        return true;
-    }
-
-    private bool RoomLayoutMatch(string pattern, string layout)
-    {
-        for (int i = 0; i < pattern.Length; i++)
-        {
-            if (pattern[i] == '?')
-            {
-                continue;
-            }
-
-            if (pattern[i] != layout[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool TrySpawnEnemies(LayoutRoom room, Vector2 shift)
+    private bool TrySpawnEnemies(LayoutRoom room, Vector3 playerPos)
     {
         if(room.HasBoss)
         {
             GameObject boss = Object.Instantiate(Resources.Load<GameObject>("Enemies/pirate/Pirate"), Vector3.zero, Quaternion.identity);
             boss.GetComponent<Enemy>().OnEnemyDeath += () =>
             {
-                Debug.Log($"Boss died, remaining, unlocking room");
+                Debug.Log($"Boss died, unlocking room");
                 _currentRoom.GetComponent<Room>().IsLocked = false;
             };
 
@@ -375,7 +345,7 @@ public class RoomManager
             return false;
         }
 
-        List<Vector2> spawnPoints = GetSpawnPoints(room.EnemiesToSpawn, shift);
+        List<Vector2> spawnPoints = GetSpawnPoints(room, playerPos);
 
         foreach (Vector2 spawnPoint in spawnPoints)
         {
@@ -395,35 +365,22 @@ public class RoomManager
         return true;
     }
 
-    private List<Vector2> GetSpawnPoints(int num, Vector2 shift)
+    private List<Vector2> GetSpawnPoints(LayoutRoom room, Vector2 playerPos)
     {
-        float xMinShift = -3f;
-        float xMaxShift = 3f;
-        float yMinShift = -3f;
-        float yMaxShift = 3f;
-
-        if (shift.x < 0)
+        List<Vector2> all = _currentRoom.GetComponent<Room>().GetValidSpawns(playerPos);
+        if (all.Count == 0)
         {
-            xMinShift = -2f;
-        } 
-        else if(shift.x > 0)
-        {
-            xMaxShift = 2f;
+            Debug.LogError("No valid spawn points found");
+            return new List<Vector2>();
         }
 
-        if (shift.y < 0)
-        {
-            yMinShift = -2f;
-        }
-        else if (shift.y > 0)
-        {
-            yMaxShift = 2f;
-        }
+        List<Vector2> spawnPoints = new List<Vector2>();
 
-        List<Vector2> spawnPoints = new();
-        for(int i = 0; i < num; i++)
+        for (int i = 0; i < room.EnemiesToSpawn; i++)
         {
-            spawnPoints.Add(new Vector2(Random.Range(xMinShift, xMaxShift), Random.Range(yMinShift, yMaxShift)));
+            Vector2 spawnPoint = all[Random.Range(0, all.Count)];
+            spawnPoints.Add(spawnPoint);
+            all.Remove(spawnPoint);
         }
 
         return spawnPoints;
@@ -461,40 +418,37 @@ public class RoomManager
 
         Debug.Log($"Final room: {freeX}, {freeY}");
 
-        string layout = rand.RoomData.ExitsLayout;
-        char[] layoutArray = layout.ToCharArray();
+        Room.RoomExitLayout layout = rand.Layout;
+        Room.RoomExitLayout finalLayout = 0;
+
 
         if (freeY > y)
         {
-            layoutArray[0] = '1';
-        } else if(freeX > x)
+            layout |= Room.RoomExitLayout.North;
+            finalLayout |= Room.RoomExitLayout.South;
+        }
+        else if (freeX > x)
         {
-            layoutArray[1] = '1';
+            layout |= Room.RoomExitLayout.East;
+            finalLayout |= Room.RoomExitLayout.West;
         }
         else if (freeY < y)
         {
-            layoutArray[2] = '1';
+            layout |= Room.RoomExitLayout.South;
+            finalLayout |= Room.RoomExitLayout.North;
         }
         else if (freeX < x)
         {
-            layoutArray[3] = '1';
+            layout |= Room.RoomExitLayout.West;
+            finalLayout |= Room.RoomExitLayout.East;
         }
 
-        string newLayout = new string(layoutArray);
-
-        RoomData[] newRooms = _levelRooms.Where(r => r.ExitsLayout == newLayout).ToArray();
-        if (newRooms.Length == 0)
-        {
-            Debug.LogError($"No rooms found with layout {newLayout}");
-            return;
-        }
-
-        RoomData room = newRooms[Random.Range(0, newRooms.Length)];
-        rand.RoomData = room;
+        rand.Layout = layout;
 
         _levelLayout.Add(freeX, freeY, new LayoutRoom
         {
             RoomData = finalRoom,
+            Layout = finalLayout,
             EnemiesToSpawn = 0
         });
     }

@@ -2981,6 +2981,7 @@ GameObject:
   - component: {fileID: 1800007185}
   - component: {fileID: 1800007184}
   - component: {fileID: 1800007186}
+  - component: {fileID: 1800007187}
   m_Layer: 0
   m_Name: GameControllerObject
   m_TagString: Untagged
@@ -3001,6 +3002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScreenFader: {fileID: 683819001}
+  RoomExitPrefab: {fileID: 3957959653837053015, guid: 83b1e584d04242c43ba24b98aefc426e, type: 3}
 --- !u!4 &1800007185
 Transform:
   m_ObjectHideFlags: 0
@@ -3031,6 +3033,21 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 1300970192}
   gameUI: {fileID: 1398586361}
   playerInput: {fileID: 877205699}
+--- !u!114 &1800007187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800007183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d66f14cfcc7ce449809024603f61fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoorTop: {fileID: 11400000, guid: 73d07dc2f8cff8a418f1722eced49044, type: 2}
+  DoorBottom: {fileID: 11400000, guid: b6782a61a566b6e40ad28a50b475ca9b, type: 2}
+  DoorSide: {fileID: 11400000, guid: de87016b7e74b5b4ead4050431864330, type: 2}
 --- !u!1 &1884432642
 GameObject:
   m_ObjectHideFlags: 0
