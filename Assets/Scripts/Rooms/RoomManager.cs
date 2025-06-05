@@ -55,7 +55,7 @@ public class RoomManager
 
     public class RoomData
     {
-        public int Exits;
+        public Room.RoomExitDefinition[] Exits;
         public GameObject Prefab;
         public bool IsFinal;
     }
@@ -131,6 +131,15 @@ public class RoomManager
         }
     }
 
+    public void UnloadManager()
+    {
+        Debug.Log("Unloading RoomManager");
+        if (_currentRoom != null)
+        {
+            Object.Destroy(_currentRoom);
+        }
+    }
+
     private bool TryActivateRoom(int x, int y, int transitionX, int transitionY)
     {
         if (_levelLayout.TryGetValue(x, y, out LayoutRoom roomData))
@@ -160,7 +169,8 @@ public class RoomManager
 
         _currentRoom = room;
 
-        Vector2 entryPoint = Vector2.zero;
+        Room.EntryPoint rep = roomComponent.RoomEntryPoint;
+        Vector2 entryPoint = new Vector2(rep.PositionX, rep.PositionY);
         Room.RoomExitDefinition target = System.Array.Find(roomComponent.Exits, e => e.TransitionX == -transitionX && e.TransitionY == -transitionY);
         if (target != null)
         {
@@ -184,13 +194,13 @@ public class RoomManager
         if(!hasEnemies)
         {
             Debug.Log($"Room {room.name} has no enemies, unlocking room");
-            roomComponent.IsLocked = false;
+            roomComponent.RoomCleaned();
         }
     }
 
-    public void AddLevelRoom(GameObject room, int exits, bool isFinal)
+    public void AddLevelRoom(GameObject room, Room.RoomExitDefinition[] exits, bool isFinal)
     {
-        Debug.Log($"Adding room {room.name} with exits {exits}, isFinal={isFinal}");
+        Debug.Log($"Adding room {room.name} with exits {exits.Length}, isFinal={isFinal}");
 
         _levelRooms.Add(new RoomData
         {
@@ -203,7 +213,7 @@ public class RoomManager
 
     private void GenerateLevel(int rooms)
     {
-        Debug.Log($"Generating level with {rooms} rooms");
+        Debug.Log($"Generating level with {rooms} rooms"); 
 
         RoomData[] validRooms = _levelRooms.Where(r => !r.IsFinal).ToArray();
         LayoutRoom initialRoom = new LayoutRoom
@@ -216,13 +226,13 @@ public class RoomManager
 
         rooms -= 1;
 
-        AppendRoomsToLayout(initialRoom, 0, 0, ref rooms);
+        AppendRoomsToLayout(initialRoom, 0, 0, ref rooms, 0, true);
         AddFinalRoom();
     }
 
-    public void AppendRoomsToLayout(LayoutRoom currentRoom, int currentX, int currentY, ref int rooms, Room.RoomExitLayout add = 0)
+    public void AppendRoomsToLayout(LayoutRoom currentRoom, int currentX, int currentY, ref int rooms, Room.RoomExitLayout add = 0, bool initial = false)
     {
-        Debug.Log($"Appending room {currentRoom.RoomData.Prefab.name} at {currentX}, {currentY} : {currentRoom.RoomData.Exits}, {rooms}");
+        Debug.Log($"Appending room {currentRoom.RoomData.Prefab.name} at {currentX}, {currentY} : {currentRoom.RoomData.Exits.Length}, {rooms}");
 
         currentRoom.Layout |= add;
 
@@ -232,7 +242,7 @@ public class RoomManager
             return;
         }
 
-        int exits = Random.Range(1, System.Math.Min(currentRoom.RoomData.Exits, rooms) + 1);
+        int exits = Random.Range(1, System.Math.Min(currentRoom.RoomData.Exits.Length - (initial ? 0 : 1), rooms) + 1);
         int rng = Random.Range(0, 4);
         Debug.Log($"New rooms to spawn: {exits}");
 
@@ -253,24 +263,54 @@ public class RoomManager
                 switch (moveIdx)
                 {
                     case 0: // North
+                        if(!currentRoom.RoomData.Exits.Any(e => e.TransitionY == 1))
+                        {
+                            Debug.Log($"No exit to North for room {currentRoom.RoomData.Prefab.name}");
+                            continue;
+                        }
+
                         moveY = 1;
                         addExit = Room.RoomExitLayout.South;
                         break;
                     case 1: // East
+                        if (!currentRoom.RoomData.Exits.Any(e => e.TransitionX == 1))
+                        {
+                            Debug.Log($"No exit to East for room {currentRoom.RoomData.Prefab.name}");
+                            continue;
+                        }
+
                         moveX = 1;
                         addExit = Room.RoomExitLayout.West;
                         break;
                     case 2: // South
+                        if (!currentRoom.RoomData.Exits.Any(e => e.TransitionY == -1))
+                        {
+                            Debug.Log($"No exit to South for room {currentRoom.RoomData.Prefab.name}");
+                            continue;
+                        }
+
                         moveY = -1;
                         addExit = Room.RoomExitLayout.North;
                         break;
                     case 3: // West
+                        if (!currentRoom.RoomData.Exits.Any(e => e.TransitionX == -1))
+                        {
+                            Debug.Log($"No exit to West for room {currentRoom.RoomData.Prefab.name}");
+                            continue;
+                        }
+
                         moveX = -1;
                         addExit = Room.RoomExitLayout.East;
                         break;
                 }
 
-                if(_levelLayout.TryGetValue(currentX + moveX, currentY + moveY, out _))
+                if(moveX == 0 && moveY == 0)
+                {
+                    Debug.LogError("No valid move found, skipping");
+                    continue;
+                }
+
+                if (_levelLayout.TryGetValue(currentX + moveX, currentY + moveY, out _))
                 {
                     Debug.Log($"Room already exists at {currentX + moveX}, {currentY + moveY}");
                     continue;
@@ -278,7 +318,12 @@ public class RoomManager
 
                 Debug.Log($"Adding room at {currentX + moveX}, {currentY + moveY}");
 
-                RoomData[] validRooms = _levelRooms.Where(r => !r.IsFinal).ToArray();
+                RoomData[] validRooms = _levelRooms.Where(r => !r.IsFinal && r.Exits.Any(e => e.TransitionX == -moveX && e.TransitionY == -moveY)).ToArray();
+                if (validRooms.Length == 0)
+                {
+                    Debug.LogError($"No valid rooms found for move {moveX}, {moveY}");
+                    continue;
+                }
                 LayoutRoom newRoom = new LayoutRoom
                 {
                     RoomData = validRooms[Random.Range(0, validRooms.Length)],
@@ -334,7 +379,7 @@ public class RoomManager
             boss.GetComponent<Enemy>().OnEnemyDeath += () =>
             {
                 Debug.Log($"Boss died, unlocking room");
-                _currentRoom.GetComponent<Room>().IsLocked = false;
+                _currentRoom.GetComponent<Room>().RoomCleaned();
             };
 
             return true;
@@ -349,7 +394,7 @@ public class RoomManager
 
         foreach (Vector2 spawnPoint in spawnPoints)
         {
-            GameObject enemy = Object.Instantiate(Resources.Load<GameObject>("Enemies/soldier/Soldier"), spawnPoint, Quaternion.identity);
+            GameObject enemy = Object.Instantiate(GameController.Instance.GetEnemy(), spawnPoint, Quaternion.identity);
             enemy.GetComponent<Enemy>().OnEnemyDeath += () =>
             {
                 Debug.Log($"Enemy died, remaining: {room.EnemiesToSpawn}");
@@ -357,7 +402,7 @@ public class RoomManager
                 if (room.EnemiesToSpawn <= 0)
                 {
                     Debug.Log($"All enemies in room {room.RoomData.Prefab.name} are dead, unlocking room");
-                    _currentRoom.GetComponent<Room>().IsLocked = false;
+                    _currentRoom.GetComponent<Room>().RoomCleaned();
                     UpgradeManager.Instance.ShowUpgrades();
                 }
             };
@@ -408,7 +453,7 @@ public class RoomManager
         do
         {
             rand = _levelLayout.GetRandom(out x, out y);
-            Debug.Log($"Try final: {x}, {y}, {rand}, {GetFreeSpace(x, y, out freeX, out freeY)}, {freeX}, {freeY}");
+            Debug.Log($"Try final: {x}, {y}, {GetFreeSpace(x, y, out freeX, out freeY)}, {freeX}, {freeY}");
         } while (rand != null && !GetFreeSpace(x, y, out freeX, out freeY));
 
         if(rand == null || (freeX == 0 && freeY == 0))
@@ -456,22 +501,24 @@ public class RoomManager
 
     private bool GetFreeSpace(int x, int y, out int freeX, out int freeY)
     {
+        _levelLayout.TryGetValue(x, y, out LayoutRoom room);
+
         freeX = x;
         freeY = y;
 
-        if (!_levelLayout.TryGetValue(x, y + 1, out _))
+        if (!_levelLayout.TryGetValue(x, y + 1, out _) && room.RoomData.Exits.Any(e => e.TransitionY == 1))
         {
             freeY++;
         }
-        else if (!_levelLayout.TryGetValue(x + 1, y, out _))
+        else if (!_levelLayout.TryGetValue(x + 1, y, out _) && room.RoomData.Exits.Any(e => e.TransitionX == 1))
         {
             freeX++;
         }
-        else if (!_levelLayout.TryGetValue(x, y - 1, out _))
+        else if (!_levelLayout.TryGetValue(x, y - 1, out _) && room.RoomData.Exits.Any(e => e.TransitionY == -1))
         {
             freeY--;
         }
-        else if (!_levelLayout.TryGetValue(x - 1, y, out _))
+        else if (!_levelLayout.TryGetValue(x - 1, y, out _) && room.RoomData.Exits.Any(e => e.TransitionX == -1))
         {
             freeX--;
         }

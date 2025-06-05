@@ -48,26 +48,33 @@ MonoBehaviour:
   RoomX: 0
   RoomY: 0
   ExitDirection: 0
+  RoomEntryPoint:
+    PositionX: 0
+    PositionY: 2
   Exits:
   - PositionX: 0
     PositionY: 6
     TransitionX: 0
     TransitionY: 1
+    LevelTransition: 0
     exit: {fileID: 0}
   - PositionX: 6
     PositionY: 0
     TransitionX: 1
     TransitionY: 0
+    LevelTransition: 0
     exit: {fileID: 0}
   - PositionX: 0
     PositionY: -6
     TransitionX: 0
     TransitionY: -1
+    LevelTransition: 0
     exit: {fileID: 0}
   - PositionX: -6
     PositionY: 0
     TransitionX: -1
     TransitionY: 0
+    LevelTransition: 0
     exit: {fileID: 0}
   isFinal: 0
   spawnActive: 0

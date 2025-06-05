@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8382753670219489931}
   - component: {fileID: 2062812317121875511}
   - component: {fileID: 513367611327588073}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlasterBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4035516334205658374}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}

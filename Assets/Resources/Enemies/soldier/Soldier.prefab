@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5090661502363335924}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BarrelBlaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1774300134187566161}
   - component: {fileID: 3000167927677605113}
   - component: {fileID: 999084111685927353}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Soldier
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7227760871167636963}
   - component: {fileID: 1367021581050351875}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}

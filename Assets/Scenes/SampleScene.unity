@@ -1114,7 +1114,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 4.15
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1330,9 +1330,33 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[10].m_ActionName
       value: 'UI/RightClick[/Mouse/rightButton]'
       objectReference: {fileID: 0}
+    - target: {fileID: 3005770848102693954, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740948758986592528, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4201855481198370095, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748259036360402158, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5876115621246506304, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876115621246506304, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014369286214556770, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6238568621623426996, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1373,6 +1397,10 @@ PrefabInstance:
     - target: {fileID: 6238568621623426996, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621093753075942846, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7794176722464426439, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: audioSource
@@ -3517,6 +3545,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenFader: {fileID: 683819001}
   RoomExitPrefab: {fileID: 3957959653837053015, guid: 83b1e584d04242c43ba24b98aefc426e, type: 3}
+  Enemies:
+  - enemies:
+    - {fileID: 1897450402366828152, guid: 3116ad4e89b03d043a07f12923bf6517, type: 3}
+    - {fileID: 4004290304510510308, guid: 4d737553b0e9fd649a6ff04f80a929f8, type: 3}
+  - enemies:
+    - {fileID: 1897450402366828152, guid: 3116ad4e89b03d043a07f12923bf6517, type: 3}
+    - {fileID: 4004290304510510308, guid: 4d737553b0e9fd649a6ff04f80a929f8, type: 3}
+  - enemies:
+    - {fileID: 1897450402366828152, guid: 3116ad4e89b03d043a07f12923bf6517, type: 3}
+    - {fileID: 4004290304510510308, guid: 4d737553b0e9fd649a6ff04f80a929f8, type: 3}
 --- !u!4 &1800007185
 Transform:
   m_ObjectHideFlags: 0
@@ -3562,6 +3600,7 @@ MonoBehaviour:
   DoorTop: {fileID: 11400000, guid: 73d07dc2f8cff8a418f1722eced49044, type: 2}
   DoorBottom: {fileID: 11400000, guid: b6782a61a566b6e40ad28a50b475ca9b, type: 2}
   DoorSide: {fileID: 11400000, guid: de87016b7e74b5b4ead4050431864330, type: 2}
+  DoorLevel: {fileID: 11400000, guid: 2d66d5d96a0c9de45b74828adce45f72, type: 2}
 --- !u!1 &1884432642
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,9 +60,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3180505194905818750, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4517407226003926770, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 4517407226003926770, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4517407226003926770, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
       propertyPath: m_IsActive
@@ -313,8 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd692f0d072c6014b985bd6ce5aa53dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 1
   moveSpeed: 0.75
+  deathSound: {fileID: 0}
   movementFilter:
     useTriggers: 0
     useLayerMask: 0

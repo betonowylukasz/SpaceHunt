@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [System.Serializable]
+    public class EnemySet
+    {
+        public GameObject[] enemies;
+    }
+
     public static GameController Instance { get; private set; }
 
     private GameObject _hub;
@@ -9,6 +15,10 @@ public class GameController : MonoBehaviour
     public RoomManager RoomManager { get; private set; }
     public ScreenFader ScreenFader;
     public GameObject RoomExitPrefab;
+
+    public EnemySet[] Enemies;
+
+    private int _currentLevel = 0;
 
     void Awake()
     {
@@ -24,11 +34,6 @@ public class GameController : MonoBehaviour
         _hubInstance = Instantiate(_hub, Vector3.zero, Quaternion.identity);
     }
 
-    void Update()
-    {
-        
-    }
-
     public void LodaLevel(int level)
     {
         if(_hubInstance != null)
@@ -37,8 +42,11 @@ public class GameController : MonoBehaviour
             _hubInstance = null;
         }
 
+        RoomManager.UnloadManager();
+        _currentLevel = level;
+
         Debug.Log($"Loading level {level}");
-        RoomManager = new RoomManager(5);
+        RoomManager = new RoomManager(Random.Range(5, 10));
 
         GameObject[] allRooms = Resources.LoadAll<GameObject>($"Rooms/Level{level}");
 
@@ -50,9 +58,32 @@ public class GameController : MonoBehaviour
                 continue;
             }
 
-            RoomManager.AddLevelRoom(room, r.Exits.Length, r.isFinal);
+            RoomManager.AddLevelRoom(room, r.Exits, r.isFinal);
         }
 
         RoomManager.LoadRoom(null, 0, 0);
+    }
+
+    public void LoadNextLevel()
+    {
+        if (_currentLevel < 3)
+        {
+            LodaLevel(_currentLevel + 1);
+        }
+        else
+        {
+            Debug.Log("All levels completed!");
+            // Handle end of game logic here, e.g., show credits or restart
+        }
+    }
+
+    public GameObject GetEnemy()
+    {
+        EnemySet enemies = Enemies[_currentLevel - 1];
+        int rng = Random.Range(0, enemies.enemies.Length);
+
+        Debug.Log($"Selected enemy: {enemies.enemies[rng].name} for level {_currentLevel}");
+
+        return enemies.enemies[rng];
     }
 }

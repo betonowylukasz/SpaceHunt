@@ -3723,6 +3723,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tileset_sf_145
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f17047d4d42c384d999b1e2d6900e4a
+      internalID: 2012933342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -3789,6 +3811,7 @@ TextureImporter:
       tileset_sf_142: -259983016631023960
       tileset_sf_143: 1409968378
       tileset_sf_144: -877728453
+      tileset_sf_145: 2012933342
       tileset_sf_15: -1948143618563592341
       tileset_sf_16: -5458542267262529280
       tileset_sf_17: -3329545960627927029

@@ -53,21 +53,31 @@ MonoBehaviour:
     PositionY: 10
     TransitionX: 0
     TransitionY: 1
+    LevelTransition: 0
     exit: {fileID: 0}
   - PositionX: 4
     PositionY: -10
     TransitionX: 0
     TransitionY: -1
+    LevelTransition: 0
     exit: {fileID: 0}
   - PositionX: 14
     PositionY: -2
     TransitionX: 1
     TransitionY: 0
+    LevelTransition: 0
     exit: {fileID: 0}
   - PositionX: -14
     PositionY: 2
     TransitionX: -1
     TransitionY: 0
+    LevelTransition: 0
+    exit: {fileID: 0}
+  - PositionX: 2
+    PositionY: -1
+    TransitionX: 0
+    TransitionY: 0
+    LevelTransition: 1
     exit: {fileID: 0}
   isFinal: 1
   spawnActive: 0
@@ -4367,7 +4377,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 4
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4452,10 +4462,10 @@ Tilemap:
     m_Data: {fileID: -2675744117299095534, guid: 89b82261d98cd31469f25d3f52c2a41a, type: 3}
   - m_RefCount: 10
     m_Data: {fileID: -6527116221101151365, guid: 89b82261d98cd31469f25d3f52c2a41a, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -1759477640275774332, guid: 89b82261d98cd31469f25d3f52c2a41a, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1759477640275774332, guid: 89b82261d98cd31469f25d3f52c2a41a, type: 3}
   - m_RefCount: 104
     m_Data: {fileID: 5698323558362113427, guid: 89b82261d98cd31469f25d3f52c2a41a, type: 3}
   - m_RefCount: 82
