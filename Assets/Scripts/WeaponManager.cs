@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
+    public static WeaponManager Instance;
+
+    public Weapon[] equipedWeapons;
     public Weapon[] availableWeapons;
     private int currentWeaponIndex = 0;
     private Weapon currentWeapon;
@@ -11,8 +14,10 @@ public class WeaponManager : MonoBehaviour
     public float rotationSpeed = 20f;
     public Text ammoText;
 
-    void Start()
+    void Awake()
     {
+        if (Instance == null)
+            Instance = this;
         EquipWeapon(currentWeaponIndex);
     }
 
@@ -72,7 +77,7 @@ public class WeaponManager : MonoBehaviour
         }
 
         currentWeaponIndex = index;
-        currentWeapon = availableWeapons[currentWeaponIndex];
+        currentWeapon = equipedWeapons[currentWeaponIndex];
         currentWeapon.Equip();
         ammoText.text = currentWeapon.ammoInClip.ToString() + "/" + currentWeapon.ammoReserve.ToString();
     }
@@ -89,7 +94,7 @@ public class WeaponManager : MonoBehaviour
 
     public Weapon[] GetWeapons()
     {
-        return availableWeapons;
+        return equipedWeapons;
     }    
 
     public void Weapon1()
@@ -102,5 +107,21 @@ public class WeaponManager : MonoBehaviour
     {
         currentWeaponIndex = 0;
         EquipWeapon(1);
+    }
+
+    public void SelectWeapon(int equipedIndex, int availableIndex)
+    {
+        equipedWeapons[equipedIndex] = availableWeapons[availableIndex];
+        EquipWeapon(equipedIndex);
+    }
+
+    public string EquipedWeaponName(int index)
+    {
+        return equipedWeapons[index].name;
+    }
+
+    public Sprite EquipedWeaponSprite(int index)
+    {
+        return equipedWeapons[index].icon;
     }
 }

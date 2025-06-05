@@ -10,6 +10,9 @@ public abstract class Weapon : MonoBehaviour
     public int ammoInClip;
     public int maxClip;
 
+    public string name;
+    public Sprite icon;
+
     protected float nextFireTime = 0f;
 
     public abstract void Shoot();
