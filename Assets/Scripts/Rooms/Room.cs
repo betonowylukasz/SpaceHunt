@@ -20,6 +20,10 @@ public class Room : MonoBehaviour
         SW = South | West,
         NS = North | South,
         EW = East | West,
+        NES = North | East | South,
+        NEW = North | West | East,
+        SEW = South | East | West,
+        NESW = North | East | South | West
     }
 
     [Serializable]
@@ -29,9 +33,17 @@ public class Room : MonoBehaviour
         public int PositionY;
         public int TransitionX;
         public int TransitionY;
+        public bool LevelTransition;
 
         [HideInInspector]
         public GameObject exit;
+    }
+
+    [Serializable]
+    public struct EntryPoint
+    {
+        public int PositionX;
+        public int PositionY;
     }
 
     public delegate void RoomExitDelegate(int transitionX, int transitionY);
@@ -48,6 +60,7 @@ public class Room : MonoBehaviour
     [HideInInspector]
     public RoomExitLayout ExitDirection = 0;
 
+    public EntryPoint RoomEntryPoint;
     public RoomExitDefinition[] Exits;
 
     public bool isFinal = false;
@@ -57,6 +70,7 @@ public class Room : MonoBehaviour
     private Tilemap tilemapNoCollision;
     private Tilemap tilemapCollision;
     private Tilemap tilemapCollisionLow;
+    private Tilemap tilemapDecoration;
 
     private void Awake()
     {
@@ -65,6 +79,7 @@ public class Room : MonoBehaviour
         tilemapNoCollision = Array.Find(tilemaps, t => t.name == "Tilemap-NoCollision");
         tilemapCollision = Array.Find(tilemaps, t => t.name == "Tilemap-Collision");
         tilemapCollisionLow = Array.Find(tilemaps, t => t.name == "Tilemap-Collision-Lowlayer");
+        tilemapDecoration = Array.Find(tilemaps, t => t.name == "Tilemap-Decorations-NoCollision");
 
         List<GameObject> exitObjects = new List<GameObject>();
 
@@ -73,7 +88,11 @@ public class Room : MonoBehaviour
             position.x += 0.32f; // Center the exit position on the tile
             position.y += 0.32f; // Center the exit position on the tile
 
-            if (exit.TransitionX == 1)
+            if(exit.LevelTransition)
+            {
+                // Empty
+            }
+            else if (exit.TransitionX == 1)
             {
                 position.x -= 0.64f; // Adjust position for East exit
                 ExitDirection |= RoomExitLayout.East;
@@ -100,7 +119,7 @@ public class Room : MonoBehaviour
             roomExitComponent.TransitionX = exit.TransitionX;
             roomExitComponent.TransitionY = exit.TransitionY;
 
-            roomExitComponent.OnPlayerEnter += OnPlayerEnterExit;
+            roomExitComponent.OnPlayerEnter += exit.LevelTransition ? OnPlayerEnterLevelExit : OnPlayerEnterExit;
             roomExit.SetActive(spawnActive);
 
             exit.exit = roomExit;
@@ -120,19 +139,54 @@ public class Room : MonoBehaviour
         GameController.Instance.RoomManager.LoadRoom(this, transitionX, transitionY);
     }
 
+    private void OnPlayerEnterLevelExit(int transitionX, int transitionY)
+    {
+        if (IsLocked)
+        {
+            return;
+        }
+
+        IsLocked = true;
+        GameController.Instance.LoadNextLevel();
+    }
+
+    public void RoomCleaned()
+    {
+        IsLocked = false;
+
+        if (!isFinal)
+        {
+            return;
+        }
+
+        RoomExitDefinition exit = Array.Find(Exits, e => e.LevelTransition);
+        if (exit == null)
+        {
+            Debug.LogError("No exit found for Level transition.");
+            return;
+        }
+
+        tilemapDecoration.SetTile(new Vector3Int(exit.PositionX, exit.PositionY, 0), TileManager.Instance.DoorLevel);
+        exit.exit.SetActive(true);
+    }
+
     public void SetLayout(RoomExitLayout layout)
     {
-        if(layout.HasFlag(RoomExitLayout.North))
+        Debug.Log($"Setting layout for room at ({RoomX}, {RoomY}): {layout}");
+
+        if (layout.HasFlag(RoomExitLayout.North))
         {
             RoomExitDefinition exit = Array.Find(Exits, e => e.TransitionY == 1);
             if (exit == null)
             {
                 Debug.LogError("No exit found for North direction.");
-                return;
+            }
+            else
+            {
+                tilemapCollisionLow.SetTile(new Vector3Int(exit.PositionX, exit.PositionY, 0), TileManager.Instance.DoorTop);
+                exit.exit.SetActive(true);
             }
 
-            tilemapCollisionLow.SetTile(new Vector3Int(exit.PositionX, exit.PositionY, 0), TileManager.Instance.DoorTop);
-            exit.exit.SetActive(true);
         }
 
         if (layout.HasFlag(RoomExitLayout.East))
@@ -143,9 +197,12 @@ public class Room : MonoBehaviour
                 Debug.LogError("No exit found for East direction.");
                 return;
             }
+            else
+            {
+                tilemapCollision.SetTile(new Vector3Int(exit.PositionX, exit.PositionY, 0), TileManager.Instance.DoorSide);
+                exit.exit.SetActive(true);
+            }
 
-            tilemapCollision.SetTile(new Vector3Int(exit.PositionX, exit.PositionY, 0), TileManager.Instance.DoorSide);
-            exit.exit.SetActive(true);
         }
 
         if (layout.HasFlag(RoomExitLayout.South))
@@ -156,9 +213,11 @@ public class Room : MonoBehaviour
                 Debug.LogError("No exit found for South direction.");
                 return;
             }
-
-            tilemapCollision.SetTile(new Vector3Int(exit.PositionX, exit.PositionY, 0), TileManager.Instance.DoorBottom);
-            exit.exit.SetActive(true);
+            else
+            {
+                tilemapCollision.SetTile(new Vector3Int(exit.PositionX, exit.PositionY, 0), TileManager.Instance.DoorBottom);
+                exit.exit.SetActive(true);
+            }
         }
 
         if (layout.HasFlag(RoomExitLayout.West))
@@ -169,13 +228,15 @@ public class Room : MonoBehaviour
                 Debug.LogError("No exit found for West direction.");
                 return;
             }
+            else
+            {
+                Vector3Int pos = new Vector3Int(exit.PositionX, exit.PositionY, 0);
+                Matrix4x4 rot = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 180));
 
-            Vector3Int pos = new Vector3Int(exit.PositionX, exit.PositionY, 0);
-            Matrix4x4 rot = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 180));
-
-            tilemapCollision.SetTile(pos, TileManager.Instance.DoorSide);
-            tilemapCollision.SetTransformMatrix(pos, rot);
-            exit.exit.SetActive(true);
+                tilemapCollision.SetTile(pos, TileManager.Instance.DoorSide);
+                tilemapCollision.SetTransformMatrix(pos, rot);
+                exit.exit.SetActive(true);
+            }
         }
     }
 

@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     public TileBase DoorTop;
     public TileBase DoorBottom;
     public TileBase DoorSide;
+    public TileBase DoorLevel;
 
     private void Awake()
     {

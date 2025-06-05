@@ -22,7 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: ee756ffe2477ad14898a10653eb106fe, type: 2}
     - target: {fileID: 1897450402366828152, guid: 3116ad4e89b03d043a07f12923bf6517, type: 3}
       propertyPath: m_Name
-      value: Soldier2 Variant
+      value: Soldier2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897450402366828152, guid: 3116ad4e89b03d043a07f12923bf6517, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6980163396733582160, guid: 3116ad4e89b03d043a07f12923bf6517, type: 3}
       propertyPath: m_Pitch
@@ -100,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 9
   moveSpeed: 0.65
+  deathSound: {fileID: 0}
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -191,9 +196,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3180505194905818750, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4517407226003926770, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 4517407226003926770, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4517407226003926770, guid: 1748ac0b82de8f24b8112bfdec0111be, type: 3}
       propertyPath: m_IsActive
