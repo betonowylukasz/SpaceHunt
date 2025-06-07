@@ -16,4 +16,4 @@ MonoBehaviour:
   description: "Przyspiesz regeneracj\u0119 staminy"
   icon: {fileID: 2998772062176029504, guid: 4fbf7e4bc3a4dd14fa8e31c1fb702335, type: 3}
   type: 3
-  value: 5
+  value: 1

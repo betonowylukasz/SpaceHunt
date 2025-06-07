@@ -32,7 +32,7 @@ public class Soldier2 : Enemy
         SetNextPause();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (player == null) return;
 

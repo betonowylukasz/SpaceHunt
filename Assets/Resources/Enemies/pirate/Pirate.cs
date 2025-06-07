@@ -37,18 +37,15 @@ public class Pirate : Enemy
     private float attackInterval;
     private float currentRotationAngle1 = 0f;
     private float currentRotationAngle2 = 0f;
-    private AudioSource audioSource;
     private Animator animator;
 
     void Start()
     {
         attackInterval = interval1;
-        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (player == null) return;
 

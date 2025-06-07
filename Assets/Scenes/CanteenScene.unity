@@ -1201,7 +1201,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: a4409207f40040f4f9ee235781146b74, type: 3}
   m_Resource: {fileID: 8300000, guid: a4409207f40040f4f9ee235781146b74, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2347,6 +2347,22 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[10].m_ActionName
       value: 'UI/RightClick[/Mouse/rightButton]'
       objectReference: {fileID: 0}
+    - target: {fileID: 3005770848102693954, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740948758986592528, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4201855481198370095, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748259036360402158, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4946900327418111881, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: icon
       value: 
@@ -2358,6 +2374,14 @@ PrefabInstance:
     - target: {fileID: 5876115621246506304, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876115621246506304, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014369286214556770, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6238568621623426996, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2410,6 +2434,10 @@ PrefabInstance:
     - target: {fileID: 7001116641264495564, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: spreadAngle
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621093753075942846, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7794176722464426439, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: audioSource
@@ -7811,9 +7839,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1864563672}
     m_Modifications:
+    - target: {fileID: 3810871016225162440, guid: b5dd758b41685224183f62046b1ab628, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4500685342570654893, guid: b5dd758b41685224183f62046b1ab628, type: 3}
       propertyPath: m_Name
       value: Pulserifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500685342570654893, guid: b5dd758b41685224183f62046b1ab628, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4500685342570654893, guid: b5dd758b41685224183f62046b1ab628, type: 3}
       propertyPath: m_IsActive

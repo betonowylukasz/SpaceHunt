@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip deadSound;
     public AudioClip takingDamageSound;
     public float dodgeDuration = 0.6f;
-    public float dodgeCost = 20f;
+    public float maxDodgeCost = 20f;
     public float staminaRegenRate = 7.5f;
     public UnityEngine.UI.Slider healthBar;
     public UnityEngine.UI.Slider staminaBar;
@@ -41,7 +41,8 @@ public class PlayerController : MonoBehaviour
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     private float health = 100;
     private float stamina = 100f;
-    private float damageRedution = 0f;
+    private float damageReceived = 100f;
+    private float staminaCost = 100f;
 
     private static PlayerController _instance;
     public static PlayerController Instance
@@ -159,7 +160,16 @@ public class PlayerController : MonoBehaviour
         // Faza 1 – szybki ruch
         while (elapsed < firstPhaseDuration)
         {
-            TryMove(dodgeDirection, 1.5f);
+            bool success = TryMove(dodgeDirection, 1.5f);
+            if (!success)
+            {
+                success = TryMove(new Vector2(dodgeDirection.x, 0), 1.5f);
+
+                if (!success)
+                {
+                    success = TryMove(new Vector2(0, dodgeDirection.y), 1.5f);
+                }
+            }
             elapsed += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -169,7 +179,16 @@ public class PlayerController : MonoBehaviour
         // Faza 2 – wolniejsze wyhamowanie
         while (elapsed < secondPhaseDuration)
         {
-            TryMove(dodgeDirection, 0.75f);
+            bool success = TryMove(dodgeDirection, 0.75f);
+            if (!success)
+            {
+                success = TryMove(new Vector2(dodgeDirection.x, 0), 0.75f);
+
+                if (!success)
+                {
+                    success = TryMove(new Vector2(0, dodgeDirection.y), 0.75f);
+                }
+            }
             elapsed += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -216,17 +235,17 @@ public class PlayerController : MonoBehaviour
         switch (upgrade.type)
         {
             case Upgrade.UpgradeType.Health:
-                health += upgrade.value;
-                healthBar.value = health;
+                healthBar.value += upgrade.value;
+                if (healthBar.value > 100) healthBar.value = 100;
                 break;
             case Upgrade.UpgradeType.DamageReduction:
-                damageRedution += 0.1f * upgrade.value;
+                damageReceived += damageReceived * ((100 - upgrade.value) / 100f);
                 break;
             case Upgrade.UpgradeType.Stamina:
-                dodgeCost -= upgrade.value;
+                staminaCost += staminaCost * ((100 - upgrade.value) / 100f);
                 break;
             case Upgrade.UpgradeType.StaminaRegeneration:
-                staminaRegenRate = 0.1f * upgrade.value;
+                staminaRegenRate += upgrade.value;
                 break;
             case Upgrade.UpgradeType.Ammo:
                 Weapon[] weapons = weaponManager.GetWeapons();
@@ -236,7 +255,7 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case Upgrade.UpgradeType.Speed:
-                moveSpeed += 0.01f * upgrade.value;
+                moveSpeed += 0.1f * upgrade.value;
                 break;
         }
     }
@@ -251,10 +270,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float damage=10f)
     {
         if (isInvincible) return;
-        health -= Max(1, 10f - damageRedution);
+        health -= damage * damageReceived / 100;
         healthBar.value = health;
         SoundController.Instance.PlaySound(takingDamageSound);
     }
@@ -305,10 +324,10 @@ public class PlayerController : MonoBehaviour
 
     void OnDodge()
     {
-        if (!isDodging && stamina >= dodgeCost && CanMove())
+        if (!isDodging && stamina >= maxDodgeCost * staminaCost / 100 && CanMove())
         {
             StartCoroutine(Dodge());
-            stamina -= Max(1, dodgeCost);
+            stamina -= maxDodgeCost * staminaCost / 100;
             staminaBar.value = stamina;
             OnDodgeAction?.Invoke();
         }

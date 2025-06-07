@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Zmniejsz koszt staminy
   icon: {fileID: 2998772062176029504, guid: 4fbf7e4bc3a4dd14fa8e31c1fb702335, type: 3}
   type: 2
-  value: 1
+  value: 15

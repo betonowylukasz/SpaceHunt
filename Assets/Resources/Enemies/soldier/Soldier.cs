@@ -28,7 +28,7 @@ public class Soldier : Enemy
         SetNextPause();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (player == null) return;
 

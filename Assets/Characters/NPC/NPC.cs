@@ -9,7 +9,7 @@ public abstract class NPC : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (isPlayerNearby && !DialogueManager.Instance.GetIsActive() && (Input.GetKeyDown(KeyCode.X)))
+        if (isPlayerNearby && !DialogueManager.Instance.GetIsActive() && interactionPromptUI.activeInHierarchy && (Input.GetKeyDown(KeyCode.X)))
         {
             HidePrompt();
             Interact();
