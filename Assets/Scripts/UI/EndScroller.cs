@@ -28,10 +28,6 @@ public class ScrollingEndText : MonoBehaviour
 
         textRect.anchoredPosition += scrollSpeed * Time.deltaTime * Vector2.up;
 
-        float textTop = textRect.anchoredPosition.y + textRect.rect.height;
-        float canvasHeight = canvasRect.rect.height;
-
-        Debug.Log($"Text Rect: {textRect.rect}, {textRect.anchoredPosition}, Canvas Rect: {canvasRect.rect}");
         if(textRect.anchoredPosition.y > textRect.rect.height)
         {
             isFinished = true;

@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    private float health = 1000;
+    private float health = 100;
     private float stamina = 100f;
     private float damageReceived = 100f;
     private float staminaCost = 100f;

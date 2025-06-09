@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        this.LoadLevel(3);
+        this.LoadLevel(1);
     }
 
     public void LoadLevel(int level)
@@ -62,7 +63,7 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.Log("All levels completed!");
-            // Handle end of game logic here, e.g., show credits or restart
+            SceneManager.LoadScene("EndScene");
         }
     }
 
