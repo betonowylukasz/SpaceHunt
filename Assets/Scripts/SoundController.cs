@@ -28,7 +28,6 @@ public class SoundController : MonoBehaviour
         sfxSource = audioSources[1];
         walkSource = audioSources[2];
 
-        musicSource.clip = musicClip;
         musicSource.loop = true;
 
         walkSource.clip = walkClip;

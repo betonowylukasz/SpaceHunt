@@ -6,6 +6,7 @@ public abstract class Weapon : MonoBehaviour
     public float fireRate;
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public int maxReserve;
     public int ammoReserve;
     public int ammoInClip;
     public int maxClip;
@@ -46,6 +47,12 @@ public abstract class Weapon : MonoBehaviour
     public void AddAmmo(int magazines)
     {
         ammoReserve += maxClip * magazines;
-}
+    }
+
+    public void resetAmmo()
+    {
+        ammoReserve = maxReserve;
+        ammoInClip = maxClip;
+    }
 }
 

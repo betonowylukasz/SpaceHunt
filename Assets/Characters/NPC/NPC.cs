@@ -1,17 +1,44 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public abstract class NPC : MonoBehaviour
 {
     public GameObject interactionPromptUI;
+    public InputActionAsset inputActions; // <- przeci¹gasz Input Asset
 
+    private InputAction dialogAction;
     protected bool isPlayerNearby = false;
 
-    protected virtual void Update()
+    protected virtual void OnEnable()
     {
-        if (isPlayerNearby && !DialogueManager.Instance.GetIsActive() && interactionPromptUI.activeInHierarchy && (Input.GetKeyDown(KeyCode.X)))
+        if (inputActions != null)
         {
-            HidePrompt();
+            var uiMap = inputActions.FindActionMap("UI");
+            dialogAction = uiMap?.FindAction("Dialog");
+
+            if (dialogAction != null)
+            {
+                dialogAction.performed += OnDialogInput;
+                dialogAction.Enable();
+            }
+        }
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (dialogAction != null)
+        {
+            dialogAction.performed -= OnDialogInput;
+            dialogAction.Disable();
+        }
+    }
+
+    private void OnDialogInput(InputAction.CallbackContext context)
+    {
+        if (isPlayerNearby &&
+            !DialogueManager.Instance.GetIsActive())
+        {
             Interact();
         }
     }
