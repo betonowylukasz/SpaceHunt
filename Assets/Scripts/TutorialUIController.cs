@@ -6,9 +6,11 @@ public class TutorialUIController : MonoBehaviour
 {
     public GameObject moveText;
     public GameObject dodgeText;
+    public GameObject dodgeInfoText;
     public GameObject lookText;
     public GameObject shootText;
     public GameObject swapWeaponText;
+    public GameObject fixerText;
     public GameObject completeText;
 
     public void ShowMove()
@@ -21,6 +23,12 @@ public class TutorialUIController : MonoBehaviour
     {
         HideAll();
         dodgeText.SetActive(true);
+    }
+
+    public void ShowDodgeInfo()
+    {
+        HideAll();
+        dodgeInfoText.SetActive(true);
     }
 
     public void ShowLook()
@@ -41,6 +49,12 @@ public class TutorialUIController : MonoBehaviour
         swapWeaponText.SetActive(true);
     }
 
+    public void ShowFixer()
+    {
+        HideAll();
+        fixerText.SetActive(true);
+    }
+
     public void ShowComplete()
     {
         HideAll();
@@ -51,9 +65,11 @@ public class TutorialUIController : MonoBehaviour
     {
         moveText.SetActive(false);
         dodgeText.SetActive(false);
+        dodgeInfoText.SetActive(false);
         lookText.SetActive(false);
         shootText.SetActive(false);
         swapWeaponText.SetActive(false);
+        fixerText.SetActive(false);
         completeText.SetActive(false);
     }
 }

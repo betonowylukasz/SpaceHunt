@@ -112,6 +112,7 @@ public class WeaponManager : MonoBehaviour
     public void SelectWeapon(int equipedIndex, int availableIndex)
     {
         equipedWeapons[equipedIndex] = availableWeapons[availableIndex];
+        equipedWeapons[equipedIndex].resetAmmo();
         EquipWeapon(equipedIndex);
     }
 

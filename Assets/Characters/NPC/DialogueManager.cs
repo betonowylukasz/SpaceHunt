@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 public class Dialogue
@@ -17,11 +19,48 @@ public class DialogueManager : MonoBehaviour
     private System.Action onFinishCallback;
     private bool isActive = false;
 
+    [Header("Input")]
+    public InputActionAsset inputActions;
+
+    private InputAction dialogAction;
+
     void Awake()
     {
         if (Instance == null)
             Instance = this;
         sentences = new Queue<string>();
+    }
+
+    private void OnEnable()
+    {
+        if (inputActions != null)
+        {
+            var uiMap = inputActions.FindActionMap("UI");
+            dialogAction = uiMap?.FindAction("Dialog");
+
+            if (dialogAction != null)
+            {
+                dialogAction.performed += OnDialogInput;
+                dialogAction.Enable();
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (dialogAction != null)
+        {
+            dialogAction.performed -= OnDialogInput;
+            dialogAction.Disable();
+        }
+    }
+
+    private void OnDialogInput(InputAction.CallbackContext context)
+    {
+        if (isActive)
+        {
+            DisplayNextSentence();
+        }
     }
 
     public void StartDialogue(Dialogue dialogue, System.Action onFinish = null)
@@ -45,23 +84,21 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
             return;
         }
-        Debug.Log(sentences.Count);
+
         dialogueText.text = sentences.Dequeue();
     }
 
     void EndDialogue()
     {
-        Debug.Log(sentences.Count);
+        if (dialogueBubble.activeInHierarchy) StartCoroutine(DelayedFinish());
         dialogueBubble.SetActive(false);
-        onFinishCallback?.Invoke();
     }
 
-    void Update()
+    IEnumerator DelayedFinish()
     {
-        if (isActive && Input.GetKeyDown(KeyCode.X))
-        {
-            DisplayNextSentence();
-        }
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 1f;
+        onFinishCallback?.Invoke();
     }
 
     public bool GetIsActive()

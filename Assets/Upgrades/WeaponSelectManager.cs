@@ -3,10 +3,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.InputSystem;
+using System.Collections;
 
 public class WeaponSelectManager : MonoBehaviour
 {
     public static WeaponSelectManager Instance;
+
+    public InputActionAsset inputActions; // przeci¹gasz ca³y Input Actions asset
+
+    private InputAction navigateAction;
+    private InputAction selectAction;
 
     private int currentSelectedIndex = 0;
 
@@ -24,50 +31,101 @@ public class WeaponSelectManager : MonoBehaviour
             Instance = this;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        // Nie reagujemy, jeœli panel nieaktywny
+        if (inputActions == null)
+        {
+            Debug.LogWarning("InputActions Asset nie jest przypisany!");
+            return;
+        }
+
+        var uiMap = inputActions.FindActionMap("UI");
+        if (uiMap == null)
+        {
+            Debug.LogError("Nie znaleziono ActionMap o nazwie 'UI'");
+            return;
+        }
+
+        navigateAction = uiMap.FindAction("Navigate");
+        selectAction = uiMap.FindAction("Select");
+
+        if (navigateAction == null || selectAction == null)
+        {
+            Debug.LogError("Nie znaleziono akcji 'Navigate' lub 'Select' w mapie UI");
+            return;
+        }
+
+        navigateAction.Enable();
+        selectAction.Enable();
+
+        navigateAction.performed += OnNavigate;
+        selectAction.performed += OnSelect;
+    }
+
+    private void OnDisable()
+    {
+        if (navigateAction != null)
+        {
+            navigateAction.performed -= OnNavigate;
+            navigateAction.Disable();
+        }
+        if (selectAction != null)
+        {
+            selectAction.performed -= OnSelect;
+            selectAction.Disable();
+        }
+    }
+
+    private void OnNavigate(InputAction.CallbackContext context)
+    {
         if (slotPanel.activeInHierarchy)
         {
-            UpdatePanel(slotUIs);
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton2)) // X na padzie
+            Vector2 dir = context.ReadValue<Vector2>();
+            if (dir.x < 0) // w lewo
             {
-                slotPanel.SetActive(false);
-                slotIndex = currentSelectedIndex;
-                ShowWeapons();
+                currentSelectedIndex = (currentSelectedIndex - 1 + slotUIs.Count) % slotUIs.Count;
+                HighlightCard(currentSelectedIndex, slotUIs);
+            }
+            else if (dir.x > 0) // w prawo
+            {
+                currentSelectedIndex = (currentSelectedIndex + 1) % slotUIs.Count;
+                HighlightCard(currentSelectedIndex, slotUIs);
             }
         }
         else if (weaponPanel.activeInHierarchy)
         {
-            UpdatePanel(cardUIs);
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton2)) // X na padzie
+            Vector2 dir = context.ReadValue<Vector2>();
+            if (dir.x < 0) // w lewo
             {
-                SelectWeapon(currentSelectedIndex);
+                currentSelectedIndex = (currentSelectedIndex - 1 + cardUIs.Count) % cardUIs.Count;
+                HighlightCard(currentSelectedIndex, cardUIs);
+            }
+            else if (dir.x > 0) // w prawo
+            {
+                currentSelectedIndex = (currentSelectedIndex + 1) % cardUIs.Count;
+                HighlightCard(currentSelectedIndex, cardUIs);
             }
         }
     }
 
-    public void UpdatePanel(List<UpgradeCardUI> cardUIs)
+    private void OnSelect(InputAction.CallbackContext context)
     {
-        // Nawigacja w lewo
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (slotPanel.activeInHierarchy)
         {
-            currentSelectedIndex = (currentSelectedIndex - 1 + cardUIs.Count) % cardUIs.Count;
-            HighlightCard(currentSelectedIndex, cardUIs);
+            slotPanel.SetActive(false);
+            slotIndex = currentSelectedIndex;
+            ShowWeapons();
         }
-
-        // Nawigacja w prawo
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        else if (weaponPanel.activeInHierarchy)
         {
-            currentSelectedIndex = (currentSelectedIndex + 1) % cardUIs.Count;
-            HighlightCard(currentSelectedIndex, cardUIs);
+            SelectWeapon(currentSelectedIndex);
         }
     }
 
     public void ShowSlots()
     {
         Time.timeScale = 0f;
-        for (int i=0;i<slotUIs.Count;i++)
+        for (int i = 0; i < slotUIs.Count; i++)
         {
             slotUIs[i].nameText.text = WeaponManager.Instance.EquipedWeaponName(i);
             slotUIs[i].icon.sprite = WeaponManager.Instance.EquipedWeaponSprite(i);
@@ -89,6 +147,12 @@ public class WeaponSelectManager : MonoBehaviour
     {
         WeaponManager.Instance.SelectWeapon(slotIndex, selectedWeapon);
         weaponPanel.SetActive(false);
+        StartCoroutine(DelayedFinish());
+    }
+
+    IEnumerator DelayedFinish()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
         DialogueManager.Instance.SetIsActive(false);
         Time.timeScale = 1f;
     }
@@ -97,14 +161,7 @@ public class WeaponSelectManager : MonoBehaviour
     {
         for (int i = 0; i < cardUIs.Count; i++)
         {
-            if (i == index)
-            {
-                cardUIs[i].transform.localScale = Vector3.one * 1.1f;
-            }
-            else
-            {
-                cardUIs[i].transform.localScale = Vector3.one;
-            }
+            cardUIs[i].transform.localScale = (i == index) ? Vector3.one * 1.1f : Vector3.one;
         }
     }
 }

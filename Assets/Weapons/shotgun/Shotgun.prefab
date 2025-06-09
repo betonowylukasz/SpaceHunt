@@ -83,8 +83,11 @@ MonoBehaviour:
   ammoReserve: 24
   ammoInClip: 4
   maxClip: 4
+  name: Shotgun
+  icon: {fileID: 21300000, guid: 5704c8eb24269f64ab4f519aadf0a1b4, type: 2}
   pelletCount: 5
-  spreadAngle: 15
+  spreadAngle: 25
+  shootClip: {fileID: 0}
 --- !u!212 &6349680360514665068
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     public UnityEngine.UI.Slider staminaBar;
     public DeathManager deathManager;
 
+    public float invincibilityDuration = 0.6f;
+    public Color hurtColor = Color.red;
+    private Color originalColor;
+
     public event Action OnMoveAction;
     public event Action OnDodgeAction;
     public event Action OnLookAction;
@@ -37,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementInput;
     private Vector2 lookInput;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRender;
+    private SpriteRenderer spriteRenderer;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     private float health = 1000;
@@ -64,7 +68,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        spriteRender = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
     private void FixedUpdate()
@@ -271,9 +276,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage=10f)
+    public void TakeDamage(float damage = 12f)
     {
         if (isInvincible) return;
+
         health -= damage * damageReceived / 100;
         healthBar.value = health;
         SoundController.Instance.PlaySound(takingDamageSound);
@@ -286,7 +292,21 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             
             deathManager.PlayerDied();
+            return;
         }
+
+        StartCoroutine(InvincibilityCoroutine());
+    }
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        spriteRenderer.color = hurtColor;
+
+        yield return new WaitForSeconds(invincibilityDuration);
+
+        spriteRenderer.color = originalColor;
+        isInvincible = false;
     }
 
     public void DeadSound()
@@ -335,7 +355,7 @@ public class PlayerController : MonoBehaviour
 
     void OnDodge()
     {
-        if (!isDodging && stamina >= maxDodgeCost * staminaCost / 100 && CanMove())
+        if (!isDodging && !isInvincible && stamina >= maxDodgeCost * staminaCost / 100 && CanMove())
         {
             StartCoroutine(Dodge());
             stamina -= maxDodgeCost * staminaCost / 100;
