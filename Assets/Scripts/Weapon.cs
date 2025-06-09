@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     public float fireRate;
+    public float reloadDuration = 3f;
     public Transform firePoint;
     public GameObject bulletPrefab;
     public int maxReserve;
@@ -15,6 +16,7 @@ public abstract class Weapon : MonoBehaviour
     public Sprite icon;
 
     protected float nextFireTime = 0f;
+    protected float reloadTime = 0f;
 
     public abstract void Shoot();
 
@@ -35,7 +37,8 @@ public abstract class Weapon : MonoBehaviour
         {
             ammoInClip =  Math.Min(maxClip, ammoReserve);
             ammoReserve -= ammoInClip;
-            nextFireTime = Time.time + 3;
+            nextFireTime = Time.time + reloadDuration;
+            reloadTime = Time.time + reloadDuration;
         }
     }
 
@@ -47,12 +50,27 @@ public abstract class Weapon : MonoBehaviour
     public void AddAmmo(int magazines)
     {
         ammoReserve += maxClip * magazines;
+
+        if (ammoReserve > maxReserve)
+        {
+            ammoReserve = maxReserve;
+        }
     }
 
     public void resetAmmo()
     {
         ammoReserve = maxReserve;
         ammoInClip = maxClip;
+    }
+
+    public float GetReloadProgress()
+    {
+        if (Time.time < reloadTime)
+        {
+            return 1 - (reloadTime - Time.time) / reloadDuration;
+        }
+
+        return 0f;
     }
 }
 

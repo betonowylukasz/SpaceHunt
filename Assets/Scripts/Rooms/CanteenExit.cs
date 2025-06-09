@@ -7,6 +7,7 @@ public class CanteenExit : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SaveManager.Instance.Save(); // Save the current game state before exiting
             SceneManager.LoadScene("SampleScene");
         }
     }

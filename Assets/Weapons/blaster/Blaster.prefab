@@ -47,11 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 4
+  reloadDuration: 1
   firePoint: {fileID: 3745048868310677204}
   bulletPrefab: {fileID: 4077147937618578280, guid: 1158ce8ddb90cef48a1a643157478d8f, type: 3}
+  maxReserve: 0
   ammoReserve: 36
   ammoInClip: 6
   maxClip: 12
+  name: 
+  icon: {fileID: 0}
   shootClip: {fileID: 0}
 --- !u!212 &3342337828825957184
 SpriteRenderer:

@@ -2333,6 +2333,10 @@ PrefabInstance:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 55579117}
+    - target: {fileID: 1401471953300197940, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
+      propertyPath: equipedWeapons.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5876115621246506304, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_Name
       value: Player

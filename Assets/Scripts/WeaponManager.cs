@@ -14,16 +14,40 @@ public class WeaponManager : MonoBehaviour
     public float rotationSpeed = 20f;
     public Text ammoText;
 
+    public Slider AmmoSlider;
+
     void Awake()
     {
         if (Instance == null)
             Instance = this;
+
+        SaveData saveData = SaveManager.Instance.CurrentSaveData;
+        equipedWeapons = new Weapon[2];
+
+        equipedWeapons[0] = availableWeapons[saveData.selectedWeapons[0]];
+        equipedWeapons[1] = availableWeapons[saveData.selectedWeapons[1]];
+        currentWeaponIndex = saveData.selectedWeapon;
+
         EquipWeapon(currentWeaponIndex);
     }
 
     private void FixedUpdate()
     {
         RotateWeaponTowardsCrosshair();
+
+        if (AmmoSlider != null && currentWeapon != null)
+        {
+            float reloadProgress = currentWeapon.GetReloadProgress();
+
+            if (reloadProgress == 0f)
+            {
+                AmmoSlider.value = (float)currentWeapon.ammoInClip / currentWeapon.maxClip;
+            }
+            else
+            {
+                AmmoSlider.value = reloadProgress;
+            }
+        }
     }
 
     private void RotateWeaponTowardsCrosshair()
@@ -80,6 +104,8 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = equipedWeapons[currentWeaponIndex];
         currentWeapon.Equip();
         ammoText.text = currentWeapon.ammoInClip.ToString() + "/" + currentWeapon.ammoReserve.ToString();
+
+        SaveManager.Instance.CurrentSaveData.selectedWeapon = currentWeaponIndex;
     }
 
     public void Shoot()
@@ -114,6 +140,9 @@ public class WeaponManager : MonoBehaviour
         equipedWeapons[equipedIndex] = availableWeapons[availableIndex];
         equipedWeapons[equipedIndex].resetAmmo();
         EquipWeapon(equipedIndex);
+
+        SaveManager.Instance.CurrentSaveData.selectedWeapons[equipedIndex] = availableIndex;
+        SaveManager.Instance.Save();
     }
 
     public string EquipedWeaponName(int index)
