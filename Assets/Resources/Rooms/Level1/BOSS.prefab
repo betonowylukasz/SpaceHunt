@@ -48,6 +48,9 @@ MonoBehaviour:
   RoomX: 0
   RoomY: 0
   ExitDirection: 0
+  RoomEntryPoint:
+    PositionX: 0
+    PositionY: 0
   Exits:
   - PositionX: -4
     PositionY: 10

@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    private float health = 100;
+    private float health = 100f;
     private float stamina = 100f;
     private float damageReceived = 100f;
     private float staminaCost = 100f;
@@ -241,14 +241,15 @@ public class PlayerController : MonoBehaviour
         switch (upgrade.type)
         {
             case Upgrade.UpgradeType.Health:
-                healthBar.value += upgrade.value;
-                if (healthBar.value > 100) healthBar.value = 100;
+                health += upgrade.value;
+                if (health > 100) health = 100;
+                healthBar.value = health;
                 break;
             case Upgrade.UpgradeType.DamageReduction:
-                damageReceived += damageReceived * ((100 - upgrade.value) / 100f);
+                damageReceived = damageReceived * ((100 - upgrade.value) / 100f);
                 break;
             case Upgrade.UpgradeType.Stamina:
-                staminaCost += staminaCost * ((100 - upgrade.value) / 100f);
+                staminaCost = staminaCost * ((100 - upgrade.value) / 100f);
                 break;
             case Upgrade.UpgradeType.StaminaRegeneration:
                 staminaRegenRate += upgrade.value;

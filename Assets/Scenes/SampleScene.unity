@@ -1389,7 +1389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4946900327418111881, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: ammoReserve
-      value: 360
+      value: 108
       objectReference: {fileID: 0}
     - target: {fileID: 5876115621246506304, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_Name
@@ -1445,7 +1445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7001116641264495564, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: ammoReserve
-      value: 240
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 7621093753075942846, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_Layer

@@ -75,9 +75,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        gameTime += Time.deltaTime;
-        UpdateTimerDisplay();
+        if (points >= 16)
+        {
+            timerText.color = new Color(0, 169, 0, 255);
+            audioSources[2].Play();
+        }
+        else UpdateTimerDisplay();
 
+        gameTime += Time.deltaTime;
+       
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -118,7 +124,6 @@ public class GameManager : MonoBehaviour
             draggingPiece.position = newPosition;
         }
 
-        // Escape ju¿ NIE jest u¿ywane tutaj – obs³uga przez Input System
     }
 
     private void SnapIfCorrect()
@@ -141,12 +146,12 @@ public class GameManager : MonoBehaviour
             draggingPiece.DOMove(targetPosition, 0.2f);
             draggingPiece.GetComponent<BoxCollider2D>().enabled = false;
             points++;
-            if (points >= 16)
+            /*if (points >= 16)
             {
                 timerText.color = new Color(0, 169, 0, 255);
                 audioSources[2].Play();
                 this.enabled = false;
-            }
+            }*/
             audioSources[0].Play();
         }
         else if (draggingPiece.position.x < baseSquare.transform.position.x - baseRenderer.size.x / 2 ||

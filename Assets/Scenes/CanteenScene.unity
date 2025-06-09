@@ -6890,6 +6890,7 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 1300970192}
   gameUI: {fileID: 1398586361}
   playerInput: {fileID: 877205699}
+  deathManager: {fileID: 0}
 --- !u!114 &1800007187
 MonoBehaviour:
   m_ObjectHideFlags: 0
