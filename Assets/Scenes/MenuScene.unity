@@ -3031,7 +3031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
       propertyPath: sceneName
-      value: SampleScene
+      value: CanteenScene
       objectReference: {fileID: 0}
     - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
       propertyPath: ButtonTextValue

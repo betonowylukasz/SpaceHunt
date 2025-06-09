@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float staminaRegenRate = 7.5f;
     public UnityEngine.UI.Slider healthBar;
     public UnityEngine.UI.Slider staminaBar;
+    public DeathManager deathManager;
 
     public event Action OnMoveAction;
     public event Action OnDodgeAction;
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Animator animator;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    private float health = 100;
+    private float health = 1000;
     private float stamina = 100f;
     private float damageReceived = 100f;
     private float staminaCost = 100f;
@@ -276,6 +277,16 @@ public class PlayerController : MonoBehaviour
         health -= damage * damageReceived / 100;
         healthBar.value = health;
         SoundController.Instance.PlaySound(takingDamageSound);
+
+        if(health <= 0)
+        {
+            health = 0;
+            //animator.Play("janus_dead", 0);
+            freezePlayer = true;
+            isInvincible = true;
+            
+            deathManager.PlayerDied();
+        }
     }
 
     public void DeadSound()
