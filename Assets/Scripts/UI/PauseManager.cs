@@ -9,12 +9,14 @@ public class PauseManager : MonoBehaviour
     private GameObject gameUI;
     [SerializeField]
     private PlayerInput playerInput;
+    [SerializeField]
+    private DeathManager deathManager;
 
     private bool isPaused = false;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !deathManager.IsDead)
         {
             if (isPaused)
             {

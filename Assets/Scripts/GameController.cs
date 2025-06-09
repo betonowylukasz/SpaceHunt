@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -6,12 +7,11 @@ public class GameController : MonoBehaviour
     public class EnemySet
     {
         public GameObject[] enemies;
+        public GameObject boss;
     }
 
     public static GameController Instance { get; private set; }
 
-    private GameObject _hub;
-    private GameObject _hubInstance;
     public RoomManager RoomManager { get; private set; }
     public ScreenFader ScreenFader;
     public GameObject RoomExitPrefab;
@@ -23,26 +23,16 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         Instance = this;
-
-        RoomManager = new RoomManager();
-
-        _hub = Resources.Load<GameObject>("Rooms/Room_Hub");
     }
 
     void Start()
     {
-        _hubInstance = Instantiate(_hub, Vector3.zero, Quaternion.identity);
+        this.LoadLevel(1);
     }
 
-    public void LodaLevel(int level)
+    public void LoadLevel(int level)
     {
-        if(_hubInstance != null)
-        {
-            Destroy(_hubInstance);
-            _hubInstance = null;
-        }
-
-        RoomManager.UnloadManager();
+        RoomManager?.UnloadManager();
         _currentLevel = level;
 
         Debug.Log($"Loading level {level}");
@@ -68,12 +58,12 @@ public class GameController : MonoBehaviour
     {
         if (_currentLevel < 3)
         {
-            LodaLevel(_currentLevel + 1);
+            LoadLevel(_currentLevel + 1);
         }
         else
         {
             Debug.Log("All levels completed!");
-            // Handle end of game logic here, e.g., show credits or restart
+            SceneManager.LoadScene("EndScene");
         }
     }
 
@@ -85,5 +75,12 @@ public class GameController : MonoBehaviour
         Debug.Log($"Selected enemy: {enemies.enemies[rng].name} for level {_currentLevel}");
 
         return enemies.enemies[rng];
+    }
+
+    public GameObject GetBoss()
+    {
+        EnemySet enemies = Enemies[_currentLevel - 1];
+        Debug.Log($"Selected boss: {enemies.boss.name} for level {_currentLevel}");
+        return enemies.boss;
     }
 }

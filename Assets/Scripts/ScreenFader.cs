@@ -42,7 +42,7 @@ public class ScreenFader : MonoBehaviour
             float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
             color.a = alpha;
             fadeImage.color = color;
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
 

@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float staminaRegenRate = 7.5f;
     public UnityEngine.UI.Slider healthBar;
     public UnityEngine.UI.Slider staminaBar;
+    public DeathManager deathManager;
 
     public float invincibilityDuration = 0.6f;
     public Color hurtColor = Color.red;
@@ -282,6 +283,17 @@ public class PlayerController : MonoBehaviour
         health -= damage * damageReceived / 100;
         healthBar.value = health;
         SoundController.Instance.PlaySound(takingDamageSound);
+
+        if(health <= 0)
+        {
+            health = 0;
+            //animator.Play("janus_dead", 0);
+            freezePlayer = true;
+            isInvincible = true;
+            
+            deathManager.PlayerDied();
+            return;
+        }
 
         StartCoroutine(InvincibilityCoroutine());
     }

@@ -102,7 +102,7 @@ public class RoomManager
 
         if(_isHub)
         {
-            GameController.Instance.LodaLevel(1);
+            GameController.Instance.LoadLevel(1);
             return;
         }
 
@@ -375,7 +375,7 @@ public class RoomManager
     {
         if(room.HasBoss)
         {
-            GameObject boss = Object.Instantiate(Resources.Load<GameObject>("Enemies/pirate/Pirate"), Vector3.zero, Quaternion.identity);
+            GameObject boss = Object.Instantiate(GameController.Instance.GetBoss(), Vector3.zero, Quaternion.identity);
             boss.GetComponent<Enemy>().OnEnemyDeath += () =>
             {
                 Debug.Log($"Boss died, unlocking room");
