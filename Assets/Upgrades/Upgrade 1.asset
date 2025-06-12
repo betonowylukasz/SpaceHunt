@@ -16,4 +16,4 @@ MonoBehaviour:
   description: "Zwi\u0119ksz maksymaln\u0105 pr\u0119dko\u015B\u0107"
   icon: {fileID: -817523631, guid: 7902d3079f4a74f44b1bd763966e913f, type: 3}
   type: 5
-  value: 2
+  value: 3

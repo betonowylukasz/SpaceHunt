@@ -9,6 +9,7 @@ public class TutorialUIController : MonoBehaviour
     public GameObject dodgeInfoText;
     public GameObject lookText;
     public GameObject shootText;
+    public GameObject reloadText;
     public GameObject swapWeaponText;
     public GameObject fixerText;
     public GameObject completeText;
@@ -43,6 +44,12 @@ public class TutorialUIController : MonoBehaviour
         shootText.SetActive(true);
     }
 
+    public void ShowReload()
+    {
+        HideAll();
+        reloadText.SetActive(true);
+    }
+
     public void ShowWeapon()
     {
         HideAll();
@@ -68,6 +75,7 @@ public class TutorialUIController : MonoBehaviour
         dodgeInfoText.SetActive(false);
         lookText.SetActive(false);
         shootText.SetActive(false);
+        reloadText.SetActive(false);
         swapWeaponText.SetActive(false);
         fixerText.SetActive(false);
         completeText.SetActive(false);

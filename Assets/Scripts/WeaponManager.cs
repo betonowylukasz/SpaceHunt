@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ public class WeaponManager : MonoBehaviour
     public Text ammoText;
 
     public Slider AmmoSlider;
+
+    public event Action OnReloadAction;
 
     void Awake()
     {
@@ -103,7 +106,7 @@ public class WeaponManager : MonoBehaviour
         currentWeaponIndex = index;
         currentWeapon = equipedWeapons[currentWeaponIndex];
         currentWeapon.Equip();
-        ammoText.text = currentWeapon.ammoInClip.ToString() + "/" + currentWeapon.ammoReserve.ToString();
+        UpdateAmmoText();
 
         SaveManager.Instance.CurrentSaveData.selectedWeapon = currentWeaponIndex;
     }
@@ -114,8 +117,23 @@ public class WeaponManager : MonoBehaviour
         {
             currentWeapon.Shoot();
             currentWeapon.TakeAmmo();
-            ammoText.text = currentWeapon.ammoInClip.ToString() + "/" + currentWeapon.ammoReserve.ToString();
+            UpdateAmmoText();
         }
+    }
+
+    public void Reload()
+    {
+        if (currentWeapon.CanReload())
+        {
+            OnReloadAction?.Invoke();
+            currentWeapon.Reload();
+        }
+        UpdateAmmoText();
+    }
+
+    public void UpdateAmmoText ()
+    {
+        ammoText.text = currentWeapon.ammoInClip.ToString() + "/" + currentWeapon.ammoReserve.ToString();
     }
 
     public Weapon[] GetWeapons()

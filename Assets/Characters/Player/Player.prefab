@@ -47,9 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5e845e98f98f64fae05dfc2cdcd295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipedWeapons:
-  - {fileID: 6415005368745426500}
-  - {fileID: 7001116641264495564}
+  equipedWeapons: []
   availableWeapons:
   - {fileID: 4946900327418111881}
   - {fileID: 7001116641264495564}
@@ -58,6 +56,7 @@ MonoBehaviour:
   weaponRadius: 0.08
   rotationSpeed: 20
   ammoText: {fileID: 0}
+  AmmoSlider: {fileID: 0}
 --- !u!1 &5876115621246506304
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +264,7 @@ MonoBehaviour:
   staminaRegenRate: 7.5
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
+  deathManager: {fileID: 0}
   invincibilityDuration: 0.6
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!50 &5870983639056569486

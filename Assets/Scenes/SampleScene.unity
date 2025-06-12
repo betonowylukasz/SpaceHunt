@@ -1195,7 +1195,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 2.5272727
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1394,14 +1394,6 @@ PrefabInstance:
       propertyPath: AmmoSlider
       value: 
       objectReference: {fileID: 822895412}
-    - target: {fileID: 4946900327418111881, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
-      propertyPath: maxReserve
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 4946900327418111881, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
-      propertyPath: ammoReserve
-      value: 72
-      objectReference: {fileID: 0}
     - target: {fileID: 5876115621246506304, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_Name
       value: Player (1)
@@ -1445,22 +1437,6 @@ PrefabInstance:
     - target: {fileID: 6238568621623426996, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6415005368745426500, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
-      propertyPath: maxReserve
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 6415005368745426500, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
-      propertyPath: ammoReserve
-      value: 48
-      objectReference: {fileID: 0}
-    - target: {fileID: 7001116641264495564, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
-      propertyPath: maxReserve
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 7001116641264495564, guid: ef5de89c0ad659f45b7920bfe575c295, type: 3}
-      propertyPath: ammoReserve
-      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2596,6 +2572,10 @@ PrefabInstance:
     - target: {fileID: 2019918035527078723, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
       propertyPath: m_Name
       value: UpgradeCard1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513928161287756447, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7849584849814954236, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
       propertyPath: m_Pivot.x
@@ -3856,6 +3836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeCard2
       objectReference: {fileID: 0}
+    - target: {fileID: 6513928161287756447, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7849584849814954236, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4710,6 +4694,10 @@ PrefabInstance:
     - target: {fileID: 2019918035527078723, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
       propertyPath: m_Name
       value: UpgradeCard3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513928161287756447, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7849584849814954236, guid: 0ec860f0ce6ef34409e513948b732f98, type: 3}
       propertyPath: m_Pivot.x

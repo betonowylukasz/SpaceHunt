@@ -365,6 +365,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnReload ()
+    {
+        weaponManager.Reload();
+    }
+
     void PlayerWalk()
     {
         SoundController.Instance.StartWalking();

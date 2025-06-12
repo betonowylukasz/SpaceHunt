@@ -33,13 +33,24 @@ public abstract class Weapon : MonoBehaviour
     public void TakeAmmo(int amount = 1)
     {
         ammoInClip -= amount;
-        if (ammoInClip <= 0)
+        if (ammoInClip <= 0 && CanReload())
         {
-            ammoInClip =  Math.Min(maxClip, ammoReserve);
-            ammoReserve -= ammoInClip;
-            nextFireTime = Time.time + reloadDuration;
-            reloadTime = Time.time + reloadDuration;
+            Reload();
         }
+    }
+
+    public void Reload()
+    {
+        int oldAmmo = ammoInClip;
+        ammoInClip = Math.Min(maxClip, ammoReserve);
+        ammoReserve -= ammoInClip - oldAmmo;
+        nextFireTime = Time.time + reloadDuration;
+        reloadTime = Time.time + reloadDuration;
+    }
+
+    public bool CanReload()
+    {
+        return ammoInClip < maxClip && reloadTime < Time.time && ammoReserve > 0;
     }
 
     public bool CanShoot()
@@ -55,6 +66,7 @@ public abstract class Weapon : MonoBehaviour
         {
             ammoReserve = maxReserve;
         }
+        WeaponManager.Instance.UpdateAmmoText();
     }
 
     public void resetAmmo()

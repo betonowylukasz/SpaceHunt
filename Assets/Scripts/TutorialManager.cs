@@ -4,10 +4,11 @@ using UnityEngine.Events;
 
 public class TutorialManager : MonoBehaviour
 {
-    public enum TutorialStep { Move, Dodge, Look, Shoot, Weapon2, Weapon1, Fixer, Complete }
+    public enum TutorialStep { Move, Dodge, Look, Shoot, Reload, Weapon2, Weapon1, Fixer, Complete }
     public TutorialUIController uiController;
     private TutorialStep currentStep = TutorialStep.Move;
 
+    private bool isCorutineStarted = false;
     private PlayerController player;
 
     void Start()
@@ -16,6 +17,7 @@ public class TutorialManager : MonoBehaviour
         PlayerController.Instance.OnDodgeAction += HandleDodge;
         PlayerController.Instance.OnLookAction += HandleLook;
         PlayerController.Instance.OnShootAction += HandleShoot;
+        WeaponManager.Instance.OnReloadAction += HandleReload;
         PlayerController.Instance.OnWeapon2Action += HandleWeapon2;
         PlayerController.Instance.OnWeapon1Action += HandleWeapon1;
         Fixer.Instance.OnDialogFinishedAction += HandleFixer;
@@ -39,13 +41,17 @@ public class TutorialManager : MonoBehaviour
         uiController.ShowDodgeInfo(); // np. "Unik blokuje pociski!"
 
         // Odczekaj 3 sekundy, potem przejdŸ do nastêpnego kroku
-        StartCoroutine(DelayedLookStep());
+        if (!isCorutineStarted)
+        {
+            StartCoroutine(DelayedLookStep());
+            isCorutineStarted = true;
+        }
     }
 
     private IEnumerator DelayedLookStep()
     {
         yield return new WaitForSeconds(3f);
-
+        isCorutineStarted = false;
         AdvanceStep(TutorialStep.Look);
         uiController.ShowLook(); // np. "Rozejrzyj siê myszk¹/padem"
     }
@@ -61,6 +67,14 @@ public class TutorialManager : MonoBehaviour
     void HandleShoot()
     {
         if (currentStep != TutorialStep.Shoot) return;
+
+        AdvanceStep(TutorialStep.Reload);
+        uiController.ShowReload();
+    }
+
+    void HandleReload()
+    {
+        if (currentStep != TutorialStep.Reload) return;
 
         AdvanceStep(TutorialStep.Weapon2);
         uiController.ShowWeapon();
