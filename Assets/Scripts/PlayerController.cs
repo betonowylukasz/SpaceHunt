@@ -267,6 +267,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SavePlayer()
+    {
+        SaveData saveData = SaveManager.Instance.CurrentSaveData;
+        saveData.health = health;
+        saveData.damageReceived = damageReceived;
+        saveData.staminaCost = staminaCost;
+        saveData.staminaRegenRate = staminaRegenRate;
+        saveData.moveSpeed = moveSpeed;
+
+        weaponManager.SaveAmmo();
+    }
+
+    public void LoadPlayer()
+    {
+        SaveData saveData = SaveManager.Instance.CurrentSaveData;
+
+        health = saveData.health;
+        damageReceived = saveData.damageReceived;
+        staminaCost = saveData.staminaCost;
+        staminaRegenRate = saveData.staminaRegenRate;
+        moveSpeed = saveData.moveSpeed;
+
+        healthBar.value = health;
+
+        weaponManager.LoadAmmo();
+    }
+
     private void StaminaRegen()
     {
         if (stamina < 100)

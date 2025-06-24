@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+    public string enemyName = "";
+    public float maxHealth;
     public float health;
     public float moveSpeed;
     public AudioClip deathSound;
@@ -10,6 +12,7 @@ public abstract class Enemy : MonoBehaviour
     protected GameObject player;
     protected Transform playerTransform;
     public event System.Action OnEnemyDeath;
+    public event System.Action OnEnemyDamage;
 
     private bool isDead = false;
 
@@ -23,6 +26,7 @@ public abstract class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        maxHealth = health;
     }
 
     protected virtual void Start() { }
@@ -40,6 +44,8 @@ public abstract class Enemy : MonoBehaviour
         health -= amount;
         if (health <= 0 && !isDead)
             Die();
+        else
+            OnEnemyDamage?.Invoke();
     }
 
     protected virtual void Die()

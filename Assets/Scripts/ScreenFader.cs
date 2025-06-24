@@ -10,6 +10,7 @@ public class ScreenFader : MonoBehaviour
     private float fadeDuration = 1.0f;
 
     public bool isFading { get; private set; }
+    public bool isFadedOut => fadeImage.color.a > 0.0f;
 
     void Awake()
     {
@@ -18,6 +19,22 @@ public class ScreenFader : MonoBehaviour
             fadeImage = GetComponent<Image>();
             Debug.LogError("Fade image is not assigned in the inspector.");
             return;
+        }
+    }
+
+    public void SetFaded(bool faded)
+    {
+        if (faded)
+        {
+            Color color = fadeImage.color;
+            color.a = 1f;
+            fadeImage.color = color;
+        }
+        else
+        {
+            Color color = fadeImage.color;
+            color.a = 0f;
+            fadeImage.color = color;
         }
     }
 

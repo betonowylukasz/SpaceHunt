@@ -29,6 +29,10 @@ public class WeaponSelectManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+
+        PlayerController.Instance.weaponManager.equipedWeapons[0].resetAmmo();
+        PlayerController.Instance.weaponManager.equipedWeapons[1].resetAmmo();
+        PlayerController.Instance.weaponManager.SaveAmmo();
     }
 
     private void OnEnable()

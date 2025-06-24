@@ -13,6 +13,11 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        if(SaveManager.Instance.CurrentSaveData.isTutorialCompleted)
+        {
+            return;
+        }
+
         PlayerController.Instance.OnMoveAction += HandleMove;
         PlayerController.Instance.OnDodgeAction += HandleDodge;
         PlayerController.Instance.OnLookAction += HandleLook;
@@ -101,6 +106,8 @@ public class TutorialManager : MonoBehaviour
 
         AdvanceStep(TutorialStep.Complete);
         uiController.ShowComplete();
+        SaveManager.Instance.CurrentSaveData.isTutorialCompleted = true;
+        SaveManager.Instance.Save();
     }
 
     void AdvanceStep(TutorialStep nextStep)

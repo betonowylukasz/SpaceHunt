@@ -16,7 +16,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !deathManager.IsDead)
+        if (Input.GetKeyDown(KeyCode.Escape) && (deathManager == null || !deathManager.IsDead))
         {
             if (isPaused)
             {

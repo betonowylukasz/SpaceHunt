@@ -75,6 +75,18 @@ public abstract class Weapon : MonoBehaviour
         ammoInClip = maxClip;
     }
 
+    public void LoadAmmo(int idx)
+    {
+        ammoInClip = SaveManager.Instance.CurrentSaveData.ammo[idx];
+        ammoReserve = SaveManager.Instance.CurrentSaveData.reserve[idx];
+    }
+
+    public void SaveAmmo(int idx)
+    {
+        SaveManager.Instance.CurrentSaveData.ammo[idx] = ammoInClip;
+        SaveManager.Instance.CurrentSaveData.reserve[idx] = ammoReserve;
+    }
+
     public float GetReloadProgress()
     {
         if (Time.time < reloadTime)

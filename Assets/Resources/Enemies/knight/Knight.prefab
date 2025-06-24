@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c5808f1719b2b49a02fe74c0c47a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyName: Lord Vax'hir
+  maxHealth: 125
   health: 125
   moveSpeed: 1
   deathSound: {fileID: 8300000, guid: bd52c9c6ebfbda3418162712f87061e6, type: 3}

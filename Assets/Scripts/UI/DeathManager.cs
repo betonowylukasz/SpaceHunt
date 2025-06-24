@@ -16,6 +16,9 @@ public class DeathManager : MonoBehaviour
 
     public void PlayerDied()
     {
+        SaveManager.Instance.CurrentSaveData.currentLevel = 0;
+        SaveManager.Instance.Save();
+
         IsDead = true;
         gameUI.SetActive(false);
         deathMenuUI.SetActive(true);

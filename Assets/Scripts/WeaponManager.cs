@@ -31,6 +31,8 @@ public class WeaponManager : MonoBehaviour
         equipedWeapons[1] = availableWeapons[saveData.selectedWeapons[1]];
         currentWeaponIndex = saveData.selectedWeapon;
 
+        LoadAmmo();
+
         EquipWeapon(currentWeaponIndex);
     }
 
@@ -51,6 +53,18 @@ public class WeaponManager : MonoBehaviour
                 AmmoSlider.value = reloadProgress;
             }
         }
+    }
+
+    public void SaveAmmo()
+    {
+        equipedWeapons[0].SaveAmmo(0);
+        equipedWeapons[1].SaveAmmo(1);
+    }
+
+    public void LoadAmmo()
+    {
+        equipedWeapons[0].LoadAmmo(0);
+        equipedWeapons[1].LoadAmmo(1);
     }
 
     private void RotateWeaponTowardsCrosshair()
@@ -159,6 +173,7 @@ public class WeaponManager : MonoBehaviour
         equipedWeapons[equipedIndex].resetAmmo();
         EquipWeapon(equipedIndex);
 
+        equipedWeapons[equipedIndex].SaveAmmo(equipedIndex);
         SaveManager.Instance.CurrentSaveData.selectedWeapons[equipedIndex] = availableIndex;
         SaveManager.Instance.Save();
     }

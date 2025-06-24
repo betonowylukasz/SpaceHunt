@@ -9,8 +9,7 @@ public class MenuButton : MonoBehaviour
 
     private TMP_Text _buttonText;
 
-    [SerializeField]
-    private UnityEvent onClickEvent;
+    public UnityEvent onClickEvent;
     [SerializeField]
     private string sceneName;
     [SerializeField]
@@ -22,6 +21,13 @@ public class MenuButton : MonoBehaviour
     {
         _buttonText = GetComponentInChildren<TMP_Text>();
         _buttonText.text = ButtonTextValue;
+    }
+
+    public void SetText(string text)
+    {
+        _buttonText = GetComponentInChildren<TMP_Text>();
+        ButtonTextValue = text;
+        _buttonText.text = text;
     }
 
     public void OnClick()

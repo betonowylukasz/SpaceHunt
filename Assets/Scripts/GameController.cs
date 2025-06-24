@@ -1,5 +1,8 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -15,6 +18,7 @@ public class GameController : MonoBehaviour
     public RoomManager RoomManager { get; private set; }
     public ScreenFader ScreenFader;
     public GameObject RoomExitPrefab;
+    public GameObject BoosHealth;
 
     public EnemySet[] Enemies;
 
@@ -27,16 +31,37 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        this.LoadLevel(1);
+        ScreenFader.SetFaded(true);
+
+        if (SaveManager.Instance.CurrentSaveData.currentLevel > 0)
+        {
+            LoadLevel(SaveManager.Instance.CurrentSaveData.currentLevel, true);
+        }
+        else
+        {
+            LoadLevel(1);
+        }
     }
 
-    public void LoadLevel(int level)
+    public void LoadLevel(int level, bool useSave = false)
     {
+        SaveManager.Instance.CurrentSaveData.currentLevel = level;
+        SaveManager.Instance.Save();
+
+        StartCoroutine(DoLevelTransition(level, useSave));
+    }
+
+    private IEnumerator DoLevelTransition(int level, bool useSave)
+    {
+        if (!ScreenFader.isFadedOut) {
+            yield return ScreenFader.FadeOut();
+        }
+
         RoomManager?.UnloadManager();
         _currentLevel = level;
 
         Debug.Log($"Loading level {level}");
-        RoomManager = new RoomManager(Random.Range(5, 10));
+        RoomManager = new RoomManager(Random.Range(5 + level, 8 + level * 3));
 
         GameObject[] allRooms = Resources.LoadAll<GameObject>($"Rooms/Level{level}");
 
@@ -51,7 +76,14 @@ public class GameController : MonoBehaviour
             RoomManager.AddLevelRoom(room, r.Exits, r.isFinal);
         }
 
-        RoomManager.LoadRoom(null, 0, 0);
+        if (useSave)
+        {
+            RoomManager.LoadSave();
+        }
+        else
+        {
+            RoomManager.LoadRoom(null, 0, 0);
+        }
     }
 
     public void LoadNextLevel()
@@ -63,6 +95,8 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.Log("All levels completed!");
+            SaveManager.Instance.CurrentSaveData.currentLevel = 0;
+            SaveManager.Instance.Save();
             SceneManager.LoadScene("EndScene");
         }
     }

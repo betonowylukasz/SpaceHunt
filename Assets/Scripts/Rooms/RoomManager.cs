@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static Room;
+using UnityEngine.UI;
 
 public class RoomManager
 {
@@ -65,7 +66,6 @@ public class RoomManager
         public RoomData RoomData;
         public int EnemiesToSpawn;
         public Room.RoomExitLayout Layout = 0;
-        public bool HasBoss => EnemiesToSpawn == 0 && RoomData.IsFinal;
     }
 
     public class AppendQueueItem
@@ -76,34 +76,64 @@ public class RoomManager
         public Room.RoomExitLayout add = 0;
     }
 
-    private readonly bool _isHub;
     private readonly List<RoomData> _levelRooms = new();
     private readonly RoomLayout<int, int, LayoutRoom> _levelLayout = new();
     private GameObject _currentRoom;
-
-    public RoomManager()
-    {
-        _isHub = true;
-    }
+    private readonly int _roomsCount = 0;
 
     public RoomManager(int roomsCount)
     {
-        _isHub = false;
+        _roomsCount = roomsCount;
+    }
+
+    public void LoadSave()
+    {
+        SaveData saveData = SaveManager.Instance.CurrentSaveData;
+
+        PlayerController.Instance.transform.position = new Vector2(saveData.playerX, saveData.playerY);
+        PlayerController.Instance.LoadPlayer();
+
+        foreach(SaveData.RoomSaveData roomSaveData in saveData.currentLayout)
+        {
+            Debug.Log($"Loading room {roomSaveData.RoomName} at {roomSaveData.X}, {roomSaveData.Y} with enemies {roomSaveData.EnemiesToSpawn}");
+            LayoutRoom layoutRoom = new LayoutRoom
+            {
+                RoomData = _levelRooms.FirstOrDefault(r => r.Prefab.name == roomSaveData.RoomName),
+                EnemiesToSpawn = roomSaveData.EnemiesToSpawn,
+                Layout = roomSaveData.Layout
+            };
+            if (layoutRoom.RoomData != null)
+            {
+                _levelLayout.Add(roomSaveData.X, roomSaveData.Y, layoutRoom);
+            }
+            else
+            {
+                Debug.LogError($"Room {roomSaveData.RoomName} not found in level rooms");
+            }
+        }
+
+        if (_levelLayout.Count == 0)
+        {
+            Debug.LogError("No rooms loaded from save data, generating new level");
+            GenerateLevel(_roomsCount);
+        }
+        else
+        {
+            Debug.Log($"Loaded {_levelLayout.Count} rooms from save data");
+            if (!TryActivateRoom(saveData.currentRoomX, saveData.currentRoomY, 0, 0, true))
+            {
+                Debug.LogError($"Failed to activate room {saveData.currentRoomX}, {saveData.currentRoomY}");
+            }
+        }
     }
 
     public void LoadRoom(Room current, int transitionX, int transitionY)
     {
-        Debug.Log($"Loading room transX={transitionX}, transY={transitionY}, isHub={_isHub}, current={current}");
+        Debug.Log($"Loading room transX={transitionX}, transY={transitionY}, current={current}");
 
         if (current != null)
         {
             current.IsLocked = true;
-        }
-
-        if(_isHub)
-        {
-            GameController.Instance.LoadLevel(1);
-            return;
         }
 
         if(current == null)
@@ -114,12 +144,16 @@ public class RoomManager
                 return;
             }
 
-            GenerateLevel(5);
+            GenerateLevel(_roomsCount);
 
             if(!TryActivateRoom(0, 0, 0, 0))
             {
                 Debug.LogError("Failed to activate room 0, 0");
             }
+
+            SaveManager.Instance.CurrentSaveData.playerX = PlayerController.Instance.transform.position.x;
+            SaveManager.Instance.CurrentSaveData.playerY = PlayerController.Instance.transform.position.y;
+            SaveManager.Instance.Save();
 
             return;
         }
@@ -140,20 +174,23 @@ public class RoomManager
         }
     }
 
-    private bool TryActivateRoom(int x, int y, int transitionX, int transitionY)
+    private bool TryActivateRoom(int x, int y, int transitionX, int transitionY, bool noPos = false)
     {
         if (_levelLayout.TryGetValue(x, y, out LayoutRoom roomData))
         {
-            GameController.Instance.StartCoroutine(DoRoomTransistion(x, y, roomData, transitionX, transitionY));
+            GameController.Instance.StartCoroutine(DoRoomTransistion(x, y, roomData, transitionX, transitionY, noPos));
             return true;
         }
 
         return false;
     }
 
-    private IEnumerator DoRoomTransistion(int x, int y, LayoutRoom roomData, int transitionX, int transitionY)
+    private IEnumerator DoRoomTransistion(int x, int y, LayoutRoom roomData, int transitionX, int transitionY, bool noPos = false)
     {
-        yield return GameController.Instance.ScreenFader.FadeOut();
+        if(!GameController.Instance.ScreenFader.isFadedOut)
+        {
+            yield return GameController.Instance.ScreenFader.FadeOut();
+        }
 
         if (_currentRoom != null && !_currentRoom.IsDestroyed())
         {
@@ -178,7 +215,10 @@ public class RoomManager
             entryPoint = new Vector2((target.PositionX + transitionX * 1.5f) * 0.64f + 0.32f, (target.PositionY + transitionY * 1.5f) * 0.64f + 0.32f);
         }
 
-        PlayerController.Instance.transform.position = entryPoint;
+        if (!noPos)
+        {
+            PlayerController.Instance.transform.position = entryPoint;
+        }
 
         bool hasEnemies = false;
         roomComponent.IsLocked = true;
@@ -228,6 +268,32 @@ public class RoomManager
 
         AppendRoomsToLayout(initialRoom, 0, 0, ref rooms, 0, true);
         AddFinalRoom();
+
+        List<SaveData.RoomSaveData> roomSaveData = new List<SaveData.RoomSaveData>();
+
+        foreach (var kvp in _levelLayout)
+        {
+            foreach (var innerKvp in kvp.Value)
+            {
+                LayoutRoom layoutRoom = innerKvp.Value;
+                roomSaveData.Add(new SaveData.RoomSaveData
+                {
+                    X = kvp.Key,
+                    Y = innerKvp.Key,
+                    RoomName = layoutRoom.RoomData.Prefab.name,
+                    EnemiesToSpawn = layoutRoom.EnemiesToSpawn,
+                    Layout = layoutRoom.Layout
+                });
+            }
+        }
+
+        SaveManager.Instance.CurrentSaveData.currentRoomX = 0;
+        SaveManager.Instance.CurrentSaveData.currentRoomY = 0;
+
+        SaveManager.Instance.CurrentSaveData.currentLayout = roomSaveData.ToArray();
+        PlayerController.Instance.SavePlayer();
+
+        SaveManager.Instance.Save();
     }
 
     public void AppendRoomsToLayout(LayoutRoom currentRoom, int currentX, int currentY, ref int rooms, Room.RoomExitLayout add = 0, bool initial = false)
@@ -373,13 +439,37 @@ public class RoomManager
 
     private bool TrySpawnEnemies(LayoutRoom room, Vector3 playerPos)
     {
-        if(room.HasBoss)
+        if(room.RoomData.IsFinal && room.EnemiesToSpawn != 0)
         {
             GameObject boss = Object.Instantiate(GameController.Instance.GetBoss(), Vector3.zero, Quaternion.identity);
-            boss.GetComponent<Enemy>().OnEnemyDeath += () =>
+            Enemy enemyComponent = boss.GetComponent<Enemy>();
+
+            enemyComponent.OnEnemyDeath += () =>
             {
                 Debug.Log($"Boss died, unlocking room");
+                room.EnemiesToSpawn = 0;
                 _currentRoom.GetComponent<Room>().RoomCleaned();
+                GameController.Instance.BoosHealth.SetActive(false);
+
+                SaveManager.Instance.CurrentSaveData.currentRoomX = _currentRoom.GetComponent<Room>().RoomX;
+                SaveManager.Instance.CurrentSaveData.currentRoomY = _currentRoom.GetComponent<Room>().RoomY;
+                SaveManager.Instance.CurrentSaveData.currentLayout.FirstOrDefault(
+                    r => r.X == _currentRoom.GetComponent<Room>().RoomX && r.Y == _currentRoom.GetComponent<Room>().RoomY).EnemiesToSpawn = 0;
+                SaveManager.Instance.CurrentSaveData.playerX = PlayerController.Instance.transform.position.x;
+                SaveManager.Instance.CurrentSaveData.playerY = PlayerController.Instance.transform.position.y;
+                PlayerController.Instance.SavePlayer();
+                SaveManager.Instance.Save();
+            };
+
+            GameController.Instance.BoosHealth.SetActive(true);
+            GameController.Instance.BoosHealth.GetComponentInChildren<TMP_Text>().text = enemyComponent.enemyName;
+            Slider healthSlider = GameController.Instance.BoosHealth.GetComponentInChildren<Slider>();
+            healthSlider.maxValue = enemyComponent.maxHealth;
+            healthSlider.value = enemyComponent.health;
+
+            enemyComponent.OnEnemyDamage += () =>
+            {
+                healthSlider.value = enemyComponent.health;
             };
 
             return true;
@@ -404,6 +494,15 @@ public class RoomManager
                     Debug.Log($"All enemies in room {room.RoomData.Prefab.name} are dead, unlocking room");
                     _currentRoom.GetComponent<Room>().RoomCleaned();
                     UpgradeManager.Instance.ShowUpgrades();
+
+                    SaveManager.Instance.CurrentSaveData.currentRoomX = _currentRoom.GetComponent<Room>().RoomX;
+                    SaveManager.Instance.CurrentSaveData.currentRoomY = _currentRoom.GetComponent<Room>().RoomY;
+                    SaveManager.Instance.CurrentSaveData.currentLayout.FirstOrDefault(
+                        r => r.X == _currentRoom.GetComponent<Room>().RoomX && r.Y == _currentRoom.GetComponent<Room>().RoomY).EnemiesToSpawn = 0;
+                    SaveManager.Instance.CurrentSaveData.playerX = PlayerController.Instance.transform.position.x;
+                    SaveManager.Instance.CurrentSaveData.playerY = PlayerController.Instance.transform.position.y;
+                    PlayerController.Instance.SavePlayer();
+                    SaveManager.Instance.Save();
                 }
             };
         }
@@ -495,7 +594,7 @@ public class RoomManager
         {
             RoomData = finalRoom,
             Layout = finalLayout,
-            EnemiesToSpawn = 0
+            EnemiesToSpawn = 1
         });
     }
 
