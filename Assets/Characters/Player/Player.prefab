@@ -261,7 +261,7 @@ MonoBehaviour:
   takingDamageSound: {fileID: 8300000, guid: 6b3c887a51200284ca28eea402b4d0c5, type: 3}
   dodgeDuration: 0.6
   maxDodgeCost: 20
-  staminaRegenRate: 7.5
+  staminaRegenRate: 5
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
   deathManager: {fileID: 0}
