@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
       propertyPath: sceneName
-      value: MenuScene
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
       propertyPath: ButtonTextValue
@@ -658,7 +658,7 @@ PrefabInstance:
     - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
       propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1800007186}
     - target: {fileID: 7417609769438068225, guid: b922a59bed31be545a58ab6bfdcc662c, type: 3}
       propertyPath: onClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2

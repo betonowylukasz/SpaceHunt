@@ -58,8 +58,8 @@ MonoBehaviour:
     TransitionY: 1
     LevelTransition: 0
     exit: {fileID: 0}
-  - PositionX: 0
-    PositionY: -6
+  - PositionX: -5
+    PositionY: -7
     TransitionX: 0
     TransitionY: -1
     LevelTransition: 0
